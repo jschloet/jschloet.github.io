@@ -154,26 +154,9 @@ body {
   /* External link styling */
 nav ul li a.external {
     position: relative;
-    padding-left: 25px; /* space for icon */
+    /*padding-left: 25px; /* space for icon */
   }
   
-  nav ul li a.scholar::before {
-    content: "📚"; /* book icon */
-    position: absolute;
-    left: 0;
-  }
-  
-  nav ul li a.dblp::before {
-    content: "🔎"; /* magnifying glass */
-    position: absolute;
-    left: 0;
-  }
-  
-  nav ul li a.orcid::before {
-    content: "🟢"; /* green circle for ORCID */
-    position: absolute;
-    left: 0;
-  }
 
   nav ul li a {
     color: white;
