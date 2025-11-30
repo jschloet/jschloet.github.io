@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jens Schlöter</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-left">
+            <h1>Jens Schlöter</h1>
+        </div>
+        
+        <div class="nav-center">
+          <ul>
+            <li><a href="#bio">About</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#publications">Publications</a></li>
+          </ul>
+        </div>
+        <div class="nav-right">
+          <ul>
+            <li><a href="https://scholar.google.com/citations?user=QlyMw7AAAAAJ&hl=en" target="_blank" class="external scholar">Google Scholar</a></li>
+            <li><a href="https://dblp.org/pid/270/3491.html" target="_blank" class="external dblp">DBLP</a></li>
+            <li><a href="https://orcid.org/0000-0003-0555-4806" target="_blank" class="external orcid">ORCID</a></li>
+          </ul>
+        </div>
+
+          <!-- Hamburger button sits independently -->
+          <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+      </nav>
+    
+  
+    <!-- Hero section -->
+    <div class="hero">
+      <h2>Jens Schlöter</h2>
+      <img src="pictures/jens.jpg" alt="My Picture">
+      <p> Postdoctoral Researcher at CWI Amsterdam</p>
+    </div>
+  
+    <!-- Bio -->
+    <section id="bio">
+      <h2>About Me</h2>
+      <ul>
+        <li> I am a postdoctoral researcher in the <a href="https://www.cwi.nl/en/research/networks-and-optimization/">Networks & Optimization</a> group at <a href="https://www.cwi.nl/en/"> Centrum Wiskunde & Informatica (CWI)</a> in Amsterdam, hosted by <a href="https://www.cwi.nl/en/people/guido-schaefer/"> Guido Schäfer.</a></li>
+        
+        <li> My main research interests are combinatorial optimization, optimization under uncertainty and approximation algorithms. In particular, I enjoy working on scheduling problems under uncertainty and query minimization problems in the area of explorable uncertainty. One major focus of my research has been to study these problems in settings beyond the worst-case, such as  <a href="https://algorithms-with-predictions.github.io">learning-augmented algorithm design </a>. </li>
+
+        <li> In 2023, I received my PhD in Computer Science from the <a href="https://www.uni-bremen.de/en/">University of Bremen</a> in Germany, where I was a PhD student (2019-2023) and postdoctoral researcher (2023-2024) in the  <a href="https://www.uni-bremen.de/en/cslog">Combinatorial Optimization and Logistics</a>, supervised by <a href="https://www.uni-bremen.de/en/cslog/nmegow"> Nicole Megow</a>. 
+        </li>        
+      </ul>
+    </section>
+  
+    <!-- News -->
+    <section id="news">
+      <h2>News</h2>
+      <ul>
+        <li> <b>13 November 2025:</b> I'm giving a talk on <i>The Complexity of Knapsack under Explorable Uncertainty</i> at the <a href="https://www.tilburguniversity.edu/current/events/dutch-day-optimization2025">Dutch Day on Optimization</a></li>
+        <li> <b>8 October 2025:</b> I'm giving a talk on <i>Non-Clairvoyant Scheduling with Progress Bars</i> at the <a href="https://www.cwi.nl/en/events/research-semester-programmes/satellite-workshop-1-learning-augmented-algorithms/"> CWI workshop on Learning augmented algorithms</a> 
+        <li> <b>18 September 2025:</b> Our paper <i>Non-Clairvoyant Scheduling with Progress Bars</i> has been accepted at NeurIPS 2025 as a spotlight paper</li>
+        <li> <b>15 September 2025:</b> I'm presenting my paper <i>On the Complexity of Knapsack under Explorable Uncertainty: Hardness and Algorithms</i> at <a href="https://algo-conference.org/2025/esa/"> ESA 2025</a> in Warsaw </li>
+        <li> <b>8 July 2025:</b> Our paper <i>A Little Clairvoyance Is All You Need</i> has been accepted at FOCS 2025</li>
+        <li> <b>4 June 2025:</b> I'm attending <a href="https://2025.highlightsofalgorithms.org">Highlights of Algorithms 2025</a> in Zürich </li>
+        <li> <b>23 June 2025:</b> My paper <i>On the Complexity of Knapsack under Explorable Uncertainty: Hardness and Algorithms</i> has been accepted at ESA 2025</li>
+        <li> <b>22 January 2025:</b>     I'm giving a talk on <i>Alpha-clairvoyant Flow Time Minimization</i> at the <a href="https://sites.google.com/view/summerworkshopco/home"> Summer Workshop on Combinatorial Optimization 2025</a> in Santiago </li>
+      </ul>
+    </section>
+  
+    <!-- Publications -->
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Non-Clairvoyant Scheduling with Progress Bars</h3>
+            <p class="pub-authors">With Ziyad Benomar, Romain Cosson and Alexander Lindermayr</p>
+            <p class="pub-venue">NeurIPS 2025 (Spotlight)</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2509.19662" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+            In non-clairvoyant scheduling, the goal is to minimize the
+            total job completion time without prior knowledge of individual
+            job processing times. This classical online optimization problem
+            has recently gained attention through the framework of
+            learning-augmented algorithms. We introduce a natural setting in
+            which the scheduler receives continuous feedback in the form of
+            progress bars—estimates of the fraction of each job completed over time.
+            We design new algorithms for both adversarial and stochastic progress bars
+            and prove strong competitive bounds. Our results in the adversarial case surprisingly
+            induce improved guarantees for learning-augmented scheduling with job size predictions.
+            We also introduce a general method for combining scheduling algorithms, yielding
+            further insights in scheduling with predictions. Finally, we propose a stochastic
+            model of progress bars as a more optimistic alternative to conventional worst-case
+            models, and present an asymptotically optimal scheduling algorithm in this setting.
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title"> A Little Clairvoyance Is All You Need</h3>
+            <p class="pub-authors"> With Anupam Gupta, Haim Kaplan, Alexander Lindermayr and Sorrachai Yingchareonthawornchai
+            </p>
+            <p class="pub-venue"> FOCS 2025</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2508.17759" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+            We revisit the classical problem of minimizing the total <i>flow
+                time</i> of jobs on a single machine in the online setting where jobs
+              arrive over time. It has long been known that the Shortest Remaining
+              Processing Time (SRPT) algorithm is optimal (i.e., 1-competitive)
+              when the job sizes are known up-front [Schrage, 1968]. But in the
+              non-clairvoyant setting where job sizes are revealed only when the
+              job finishes, no algorithm can be constant-competitive [Motwani,
+              Phillips, and Torng, 1994].
+              </p>
+            
+              <p>
+                We consider the \(\epsilon\)-<i>clairvoyant</i> setting, where
+              \(\epsilon \in [0,1]\), and each job's processing time becomes known once
+              its remaining processing time equals an \(\epsilon\)-fraction of its
+              processing time. This captures settings where the system user uses
+              the initial  (\(1-\epsilon\))-fraction of a job's processing time to learn
+              its true length, which it can then reveal to the algorithm. The
+              model was proposed by Yingchareonthawornchai and Torng (2017), and
+              it smoothly interpolates between the clairvoyant setting (when
+              \(\epsilon = 1\)) and the non-clairvoyant setting (when \(\epsilon = 0\)).  In
+              a concrete sense, we are asking: <i>how much knowledge is
+                required to circumvent the hardness of this problem?</i>
+            </p>
+
+                <p>
+               We show that <i>a little knowledge is enough</i>, and that
+              a constant competitive algorithm exists for every constant \(\epsilon >
+              0\). More precisely, for all \(\epsilon \in (0,1)\), we present a
+              deterministic \(\lceil{\frac{1}{\epsilon}}\rceil\)-competitive algorithm, which is optimal for
+              deterministic algorithms. We also present a matching lower bound (up
+              to a constant factor) for randomized algorithms.
+            </p>
+
+              <p>
+               Our algorithm to achieve this bound is remarkably simple and
+              applies the "optimism in the face of
+              uncertainty" principle.
+              For each job, we form an optimistic estimate of its length,
+              based on the information revealed thus far and run SRPT on
+              these optimistic estimates.
+            The proof relies on maintaining a matching between the jobs in OPT's queue and the algorithm's queue,  with small prefix expansion. We achieve this
+            by carefully choosing a set of jobs <i>to
+              arrive earlier than their release times</i> without changing the
+              algorithm, and possibly helping the adversary.
+             These early arrivals allow us to maintain structural properties inductively, giving us the tight guarantee.
+          </p>
+        </div>
+      </div>
+ 
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> On the Complexity of Knapsack under Explorable Uncertainty: Hardness and Algorithms</h3>
+                <p class="pub-venue"> ESA 2025</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2507.02657" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+   
+            In the <i>knapsack problem under explorable uncertainty</i>, we are given a knapsack instance with uncertain item profits. Instead of having access to the precise profits, we are only given <i>uncertainty intervals</i> that are guaranteed to contain the corresponding profits. The actual item profit can be obtained via a <i>query</i>. The goal of the problem is to adaptively query item profits until the revealed information suffices to compute an optimal (or approximate) solution to the underlying knapsack instance. Since queries are costly, the objective is to minimize the number of queries.
+          </p>
+
+            <p>
+            In the offline variant of this problem, we assume knowledge of the precise profits and the task is to compute a query set of minimum cardinality that a third party without access to the profits could use to identify an optimal (or approximate) knapsack solution. We show that this offline variant is complete for the second-level of the polynomial hierarchy, i.e., \(\Sigma_2^p\)-complete, and cannot be approximated within a non-trivial factor unless \(\Sigma_2^p = \Delta_2^p\). Motivated by these strong hardness results, we consider a "resource-augmented" variant of the problem where the requirements on the query set computed by an algorithm are less strict than the requirements on the optimal solution we compare against. More precisely, a query set computed by the algorithm must reveal sufficient information to identify an approximate knapsack solution, while the optimal query set we compare against has to reveal sufficient information to identify an optimal solution. We show that this resource-augmented setting allows interesting non-trivial algorithmic results.
+        
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Accelerating matroid optimization through fast imprecise oracles</h3>
+                <p class="pub-authors">With Franziska Eberle, Felix Hommelsheim, Alexander Lindermayr, Zhenwei Liu and Nicole Megow</p>
+                <p class="pub-venue"> NeurIPS 2024</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2402.02774" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+   
+            Querying complex models for precise information (e.g. traffic models, database systems, large ML models) often entails intense computations and results in long response times. Thus, weaker models that give imprecise results quickly can be advantageous, provided inaccuracies can be resolved using few queries to a stronger model. In the fundamental problem of computing a maximum-weight basis of a matroid, a well-known generalization of many combinatorial opti- mization problems, algorithms have access to a clean oracle to query matroid information. We additionally equip algorithms with a fast but dirty oracle. We design and analyze practical algorithms that only use few clean queries w.r.t. the quality of the dirty oracle, while main- taining robustness against arbitrarily poor dirty oracles, approaching the performance of classic algorithms for the given problem. Notably, we prove that our algorithms are, in many respects, best-possible. Further, we outline extensions to other matroid oracle types, non-free dirty oracles and other matroid problems.
+        
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Competitive query minimization for stable matching with one-sided uncertainty</h3>
+                <p class="pub-authors">With Evripidis Bampis, Konstantinos Dogeas, Thomas Erlebach, Nicole Megow and Amitabh Trehan
+                </p>
+                <p class="pub-venue"> APPROX 2024</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2407.10170" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+   
+            We study the two-sided stable matching problem with one-sided uncertainty for two sets of agents A and B, with equal cardinality. Initially, the preference lists of the agents in A are given but the preferences of the agents in B are unknown. An algorithm can make queries to reveal information about the preferences of the agents in B. We examine three query models: comparison queries, interviews, and set queries. Using competitive analysis, our aim is to design algorithms that minimize the number of queries required to solve the problem of finding a stable matching or verifying that a given matching is stable (or stable and optimal for the agents of one side). We present various upper and lower bounds on the best possible competitive ratio as well as results regarding the complexity of the offline problem of determining the optimal query set given full information.
+        
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Santa claus meets makespan and matroids: Algorithms and reductions</h3>
+                <p class="pub-authors">With Étienne Bamas, Alexander Lindermayr, Nicole Megow and Lars Rohwedder
+                <p class="pub-venue"> SODA 2024</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2307.08453" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+            <p>
+            In this paper we study the relation of two fundamental problems 
+            in scheduling and fair allocation: makespan minimization
+            on unrelated parallel machines and max-min fair allocation, also known as the Santa Claus problem. 
+            For both of these problems the best approximation 
+            factor is a notorious open question; more precisely, whether there is a better-than-2 approximation for the former problem and whether there is a constant approximation for the latter. 
+        </p>
+        <p>
+            While the two problems are intuitively related and history has shown
+            that techniques can often be transferred between them, no formal
+            reductions are known. We first show that an affirmative answer to the open question for makespan minimization implies the same for the Santa Claus problem by reducing the latter problem to the former.
+            We also prove that for problem instances with only two input values both questions are equivalent.
+        </p>
+        <p>
+            We then move to a special case called "restricted assignment",
+            which is well studied in both problems. Although our reductions
+            do not maintain the characteristics of this special case, we give a reduction in a slight generalization, where the jobs or resources are assigned to multiple machines or players subject to a matroid constraint and in addition we have only two values. 
+            Since for the Santa Claus problem with matroids the two value case is up to constants equivalent to the general case, this draws a similar picture as before: equivalence for two values and the general case of Santa Claus can only be easier than makespan minimization.
+            To complete the picture, we give an algorithm for our
+            new matroid variant of the Santa Claus problem
+            using a non-trivial extension
+            of the local search method from restricted assignment. Thereby we 
+            unify, generalize, and improve several previous results.
+            We believe that this matroid generalization may be of independent interest
+            and provide several sample applications.
+        </p>
+        <p>
+            As corollaries, we obtain a polynomial-time \((2 - 1/n^\epsilon)\)$-approximation for two-value makespan minimization for every \(\epsilon > 0\), improving on the previous \((2 - 1/m)\)-approximation, and a polynomial-time \((1.75+\epsilon)\)-approximation for makespan minimization in the restricted assignment case with two values, improving the previous best rate of \(1 + 2 / \sqrt{5} + \epsilon \approx 1.8945\).
+        </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Optimization under explorable uncertainty: beyond the worst-case</h3>
+                <p class="pub-venue"> PhD Thesis 2023</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://media-api.suub.uni-bremen.de/api/core/bitstreams/5c25bb62-e775-4d3c-b2eb-1ac0d49aee7a/content" target="_blank" class="pub-btn">SuUB</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+
+            When solving optimization problems that arise in real-world applications, uncertainty in the input data and incomplete information are major challenges. Consider for example varying transportation times depending on traffic conditions or weather, variable parameters such as bandwidth and demands, or decentralized data that is updated infrequently. 
+        </p>
+
+            <p>
+            The three major mathematical models for uncertainty in optimization problems are online optimization, stochastic optimization and robust optimization. These models have in common that the uncertain information is usually either revealed passively over time or not at all. Optimization algorithms for problems in these models have to cope with this type of uncertainty and make decisions based on incomplete information. In particular, they do not have the option, not even at a cost, to actively obtain new information that helps to handle the optimization task at hand. 
+        </p>
+
+            <p>
+            This thesis considers the model of explorable uncertainty, where uncertain parts in the input of an optimization problem can be queried at a certain cost to reveal more information. The goal in explorable uncertainty is to design algorithms that query uncertain parameters until the revealed information is sufficient to determine an optimal solution to the underlying optimization problem, with the objective to minimize the query cost. So far, explorable uncertainty has mostly been studied in the adversarial setting, where we assume that query results are returned in a worst-case manner and analyze algorithms in terms of their competitive ratio. This setting however leads to strong lower bounds on the competitive ratio for several interesting problems and might be too pessimistic in many real world applications. Instead, this thesis considers several problems under explorable uncertainty and analyzes them in settings that go beyond the worst-case. In particular, we study a learning-augmented and a stochastic setting for problems under explorable uncertainty.        
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Minimalistic predictions to schedule jobs with online precedence constraints</h3>
+                <p class="pub-authors">With Alexandra Lassota, Alexander Lindermayr and Nicole Megow
+                <p class="pub-venue"> ICML 2023</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2301.12863" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>We consider non-clairvoyant scheduling with online precedence constraints, where an algorithm is oblivious to any job dependencies and learns about a job only if all of its predecessors have been com- pleted. Given strong impossibility results in classical competitive analysis, we investigate the problem in a learning-augmented setting, where an algorithm has access to predictions without any quality guarantee. We discuss different prediction models: novel problem-specific models as well as general ones, which have been proposed in previous works. We present lower bounds and algorithmic upper bounds for different precedence topologies, and thereby give a structured overview on which and how additional (possibly erroneous) information helps for designing better algorithms. Along the way, we also improve bounds on traditional competitive ratios for existing algorithms.   
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Set selection under explorable stochastic uncertainty via covering techniques</h3>
+                <p class="pub-authors">With Nicole Megow
+                <p class="pub-venue"> IPCO 2023</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2211.01097" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>Given subsets of uncertain values, we study the problem of identifying the subset of minimum total value (sum of the uncertain values) by querying as few values as possible. This set selection problem falls into the field of explorable uncertainty and is of intrinsic importance therein as it implies strong adversarial lower bounds for a wide range of interesting combinatorial problems such as knapsack and matchings. We consider a stochastic problem variant and give algorithms that, in expectation, improve upon these adversarial lower bounds. The key to our results is to prove a strong structural connection to a seemingly unrelated covering problem with uncertainty in the constraints via a linear programming formulation. We exploit this connection to derive an algorithmic framework that can be used to solve both problems under uncertainty, obtaining nearly tight bounds on the competitive ratio. This is the first non-trivial stochastic result concerning the sum of unknown values without further structure known for the set. With our novel methods, we lay the foundations for solving more general problems in the area of explorable uncertainty.
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Sorting and hypergraph orientation under uncertainty with predictions</h3>
+                <p class="pub-authors">With Thomas Erlebach, Murilo Santos de Lima and Nicole Megow
+                <p class="pub-venue"> IJCAI 2023</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2305.09245" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	Learning-augmented algorithms have been attracting increasing interest,	but have only recently been considered in the setting of explorable uncertainty where precise values of uncertain input elements can be obtained by a query and the goal is to minimize the number of queries needed to solve a problem. We study learning-augmented algorithms for sorting and hypergraph orientation under uncertainty, assuming access to untrusted predictions for the uncertain values. Our algorithms provide improved performance guarantees for accurate predictions while maintaining worst-case guarantees that are best possible without predictions. For hypergraph orientation, for any \(\gamma \geq 2\), we give an algorithm that achieves a competitive ratio of \(1+1/\gamma\) for correct predictions and \(\gamma\) for arbitrarily wrong predictions. For sorting, we achieve an optimal solution for accurate predictions while still being 2-competitive for arbitrarily wrong predictions. These tradeoffs are the best possible. We also consider different error metrics and show that the performance of our algorithms degrades smoothly with the prediction error in all the cases
+
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Learning-augmented query policies for minimum spanning tree with uncertainty</h3>
+                <p class="pub-authors">With Thomas Erlebach, Murilo Santos de Lima and Nicole Megow
+                <p class="pub-venue"> ESA 2022</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2206.15201" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	We study how to utilize (possibly erroneous) predictions in a model for computing under uncertainty in which an algorithm can query unknown data. Our aim is to minimize the number of queries needed to solve the minimum spanning tree problem, a fundamental combinatorial optimization problem that has been central also to the research area of explorable uncertainty. For all integral \(\gamma\ge 2\), we present algorithms that are \(\gamma\)-robust and \((1+\frac{1}{\gamma})\)-consistent, meaning that they use at most \(\gamma OPT\) queries if the predictions are arbitrarily wrong and at most \((1+\frac{1}{\gamma})OPT\) queries if the predictions are correct, where \(OPT\) is the optimal number of queries for the given instance. Moreover, we show that this trade-off is best possible. Furthermore, we argue that a suitably defined hop distance is a useful measure for the amount of prediction error and design algorithms with performance guarantees that degrade smoothly with the hop distance. We also show that the predictions are PAC-learnable in our model. Our results demonstrate that untrusted predictions can circumvent the known lower bound of 2, without any degradation of the worst-case ratio. To obtain our results, we provide new structural insights for the minimum spanning tree problem that might be useful in the context of query-based algorithms regardless of predictions. In particular, we generalize the concept of witness sets -- the key to lower-bounding the optimum -- by proposing novel global witness set structures and completely new ways of adaptively using those.
+            cases
+
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Robustification of online graph exploration methods</h3>
+                <p class="pub-authors">With Franziska Eberle, Alexander Lindermayr, Nicole Megow and Lukas Nölke
+                <p class="pub-venue"> AAAI 2022</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/abs/2112.05422" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	Exploring unknown environments is a fundamental task in many domains, e.g., robot navigation, network security, and internet search. We initiate the study of a learning-augmented variant of the classical, notoriously hard online graph exploration problem by adding access to machine-learned predictions. We propose an algorithm that naturally integrates predictions into the well-known Nearest Neighbor (NN) algorithm and significantly outperforms any known online algorithm if the prediction is of high accuracy while maintaining good guarantees when the prediction is of poor quality. We provide theoretical worst-case bounds that gracefully degrade with the prediction error, and we complement them by computational experiments that confirm our results. Further, we extend our concept to a general framework to robustify algorithms. By interpolating carefully between a given algorithm and NN, we prove new performance bounds that leverage the individual good performance on particular inputs while establishing robustness to arbitrary inputs.
+
+
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Orienting (hyper) graphs under explorable stochastic uncertainty</h3>
+                <p class="pub-authors">With Evripidis Bampis, Christoph Dürr, Thomas Erlebach, Murilo S de Lima and Nicole Megow
+                <p class="pub-venue"> ESA 2021</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2107.00572" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	Given a hypergraph with uncertain node weights following known probability distributions, we study the problem of querying as few nodes as possible until the identity of a node with minimum weight can be determined for each hyperedge. Querying a node has a cost and reveals the precise weight of the node, drawn from the given probability distribution. Using competitive analysis, we compare the expected query cost of an algorithm with the expected cost of an optimal query set for the given instance. For the general case, we give a polynomial-time \(f(\alpha)\)-competitive algorithm, where \(f(\alpha)\in [1.618+\epsilon,2]\) depends on the approximation ratio \(\alpha\) for an underlying vertex cover problem. We also show that no algorithm using a similar approach can be better than \(1.5\)-competitive. Furthermore, we give polynomial-time \(4/3\)-competitive algorithms for bipartite graphs with arbitrary query costs and for hypergraphs with a single hyperedge and uniform query costs, with matching lower bounds.
+
+
+          </p>
+        </div>
+      </div>
+ 
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> OThroughput scheduling with equal additive laxity</h3>
+                <p class="pub-authors">With Martin Böhm and Nicole Megow
+                <p class="pub-venue"> CIAC  2021</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://link.springer.com/content/pdf/10.1007/978-3-030-75242-2_9.pdf" target="_blank" class="pub-btn">Springer</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>		We study a special case of a classical throughput maximization problem. There is given a set of jobs, each job \(j\) having a processing time \(p_j\), a release time \(r_j\), a deadline \(d_j\), and possibly a weight. The jobs have to be scheduled  non-preemptively on \(m\) identical parallel machines. The goal is to find a schedule for a subset of jobs of maximum cardinality (or maximum total weight) that start and finish within their feasible time window \([r_j,d_j)\). In our special case, the additive laxity of every job is equal, i.e., \(d_j-p_j-r_j= \Delta\) with a common \(\Delta\) for all jobs. Throughput scheduling has been studied extensively over decades. Understanding important special cases is of major interest. 
+            From a practical point of view, our special case was raised as important in the context of last-mile meal deliveries.
+            As a main result we show that single-machine throughput scheduling with equal additive laxity can be solved optimally in polynomial time.
+            This contrasts the strong NP-hardness of the  
+            problem variant with arbitrary (and even equal multiplicative) laxity.
+            Further, we give a fully polynomial-time approximation scheme for the weakly NP-hard weighted problem.
+            Our single-machine algorithm can be used repeatedly to schedule jobs on multiple machines, such as in the greedy framework by Bar-Noy et al. [STOC'99], with an approximation ratio of \(\frac{(m)^m}{(m)^m - (m-1)^m}\!<\!\frac{e}{e-1}\).
+            Finally, we present a pseudo-polynomial~time algorithm for our weighted problem on a constant number of machines.
+    
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> On the complexity of conditional DAG scheduling in multiprocessor systems</h3>
+                <p class="pub-authors">With Alberto Marchetti-Spaccamela, Nicole Megow, Martin Skutella and Leen Stougie
+                <p class="pub-venue"> IPDPS  2020</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://www.cslog.uni-bremen.de/jschloet/pub/cdag.pdf" target="_blank" class="pub-btn">PDF</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	As parallel processing became ubiquitous in modern computing systems, parallel task models have been proposed to describe the structure of parallel applications. The workflow scheduling problem has been studied extensively over past years, focusing on multiprocessor systems and distributed environments (e.g. grids, clusters). In workflow scheduling, applications are modeled as directed acyclic graphs (DAGs). DAGs have also been introduced in the real-time scheduling community to model the execution of multi-threaded programs on a multi-core architecture. The DAG model assumes, in most cases, a fixed DAG structure capturing only straight-line code. Only recently, more general models have been proposed. In particular, the conditional DAG model allows the presence of control structures such as conditional (if-then-else) constructs. While first algorithmic results have been presented for the conditional DAG model, the complexity of schedulability analysis remains wide open. We perform a thorough analysis on the worst-case makespan (latest completion time) of a conditional DAG task under list scheduling (a.k.a. fixed-priority scheduling). We show several hardness results concerning the complexity of the optimization problem on multiple processors, even if the conditional DAG has a well-nested structure. For general conditional DAG tasks, the problem is intractable even on a single processor. Complementing these negative results, we show that certain practice-relevant DAG structures are very well tractable.
+          </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> Improving SAT solving using Monte Carlo tree search-based clause learning</h3>
+                <p class="pub-authors">With Oliver Keszocze, Kenneth Schmitz, Jens Schloeter and Rolf Drechsler
+                <p class="pub-venue"> IWSBP  2020</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://link.springer.com/chapter/10.1007/978-3-030-20323-8_5" target="_blank" class="pub-btn">Springer</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	Most modern state-of-the-art Boolean Satisfiability (SAT) solvers are based on the Davis–Putnam–Logemann–Loveland algorithm and exploit techniques like unit propagation and Conflict-Driven Clause Learning (CDCL). Even though this approach proved to be successful in practice, the success of the Monte Carlo Tree Search (MCTS) algorithm in other domains led to research in using it to solve SAT problems. A recent approach extended the attempt to solve SAT using an MCTS-based algorithm by adding CDCL. We further analyzed the behavior of that approach by using visualizations of the produced search trees and based on the analysis introduced multiple heuristics improving different aspects of the quality of the learned clauses. While the resulting solver can be used to solve SAT on its own, the real strength lies in the learned clauses. By using the MCTS solver as a preprocessor, the learned clauses can be used to improve the performance of existing SAT solvers.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="publication">
+        <div class="pub-main">
+            <div class="pub-info">
+                <h3 class="pub-title"> A Monte Carlo Tree Search Based Conflict-Driven Clause Learning SAT Solver</h3>
+                <p class="pub-venue"> INFORMATIK  2017</p>
+              </div>
+      
+          <div class="pub-buttons">
+            <a href="https://dl.gi.de/server/api/core/bitstreams/286b2184-f425-4125-b57b-cf39299cd30e/content" target="_blank" class="pub-btn">GI</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>	Most modern state-of-the-art Boolean Satisfiability (SAT) solvers are based on the Davis-Putnam-Logemann-Loveland (DPLL) algorithm and exploit techniques like unit propagation and Conflict-Driven Clause Learning. Even though this approach proved to be successful in practice and most recent publications focus on improving it, the success of the Monte Carlo Tree Search (MCTS) algorithm in other domains led to research in using it to solve SAT problems. While a MCTS-based algorithm was successfully used to solve SAT problems, a number of established SAT solving techniques like clause learning and parallelization were not included in the algorithm. Therefore this paper presents ways to combine the MCTS-based SAT solving approach with established SAT solving techniques like Conflict-Driven Clause Learning and shows that the addition of those techniques improves the performance of a plain MCTS-based SAT solving algorithm.
+          </p>
+        </div>
+      </div>
+ 
+    </section>
+
+ 
+  
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Jens Schlöter.</p>
+    </footer>
+  
+
+    <script>
+        function toggleMenu() {
+          document.querySelector('.nav-center').classList.toggle('active');
+          document.querySelector('.nav-right').classList.toggle('active');
+          document.querySelector('.hamburger').classList.toggle('active');
+          document.querySelector('.nav-left').classList.toggle('active'); // add this line
+        }
+    </script>
+
+    <script>
+    function toggleAbstract(button) {
+      const pub = button.closest('.publication');
+      const abstract = pub.querySelector('.pub-abstract');
+      abstract.style.display = abstract.style.display === 'block' ? 'none' : 'block';
+    }
+    </script>
+  </body>
+</html>
