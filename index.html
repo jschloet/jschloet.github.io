@@ -80,6 +80,33 @@
     <section id="publications">
       <h2>Publications</h2>
 
+
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Optimal Verification of a Minimum-Weight Basis in an Uncertainty Matroid</h3>
+            <p class="pub-authors">With Haya Diwan, Lisa Hellerstein and Nicole Megow</p>
+            <p class="pub-venue">STACS 2026</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <!-- <a href="https://arxiv.org/pdf/2509.19662" target="_blank" class="pub-btn">arXiv</a> -->
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+            Research in explorable uncertainty addresses combinatorial optimization problems where there is partial information about the values of numeric input parameters, and exact values of these parameters can be determined by performing costly queries. The goal is to design an adaptive query strategy that minimizes the query cost incurred in computing an optimal solution. Solving such problems generally requires that we be able to solve the associated verification problem: given the answers to all queries in advance, find a minimum-cost set of queries that certifies an optimal solution to the combinatorial optimization problem.We present a polynomial-time algorithm for verifying a minimum-weight basis of a matroid, where each weight lies in a given uncertainty area. These areas may be finite sets, real intervals, or unions of open and closed intervals, strictly generalizing previous work by Erlebach and Hoffman which only handled the special case of open intervals. Our algorithm introduces new techniques to address the resulting challenges.  
+          </p>
+            <p>
+            Verification problems are of particular importance in the area of explorable uncertainty, as the structural insights and techniques used to solve the verification problem often heavily influence work on the corresponding online problem and its stochastic variant. In our case, we use structural results from the verification problem to give a best-possible algorithm for a promise variant of the  corresponding adaptive online problem. Finally, we show that our algorithms can be applied to two learning-augmented variants of the minimum-weight basis problem under explorable uncertainty.
+
+          </p>
+        </div>
+      </div>
+
       <div class="publication">
         <div class="pub-main">
           <div class="pub-info">
