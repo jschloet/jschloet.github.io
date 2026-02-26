@@ -21,6 +21,7 @@
             <li><a href="#bio">About</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#publications">Publications</a></li>
+            <li><a href="#preprints">Preprints</a></li>
           </ul>
         </div>
         <div class="nav-right">
@@ -76,6 +77,79 @@
       </ul>
     </section>
   
+    <!-- Preprints -->
+    <section id="preprints">
+      <h2>Preprints and working papers</h2>
+      
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Online Flow Time Minimization with Gradually Revealed Jobs</h3>
+            <p class="pub-authors">With Guido Schäfer, Alexander Lindermayr and Leen Stougie</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2602.12716" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+          We consider the problem of online preemptive scheduling on a 
+          single machine to minimize the total flow time. In clairvoyant scheduling, 
+          where job processing times are revealed upon arrival, 
+          the Shortest Remaining Processing Time (SRPT) algorithm is optimal. 
+          In practice, however, exact processing times are often unknown. 
+          At the opposite extreme, non-clairvoyant scheduling, in which processing times are 
+          revealed only upon completion, suffers from strong lower bounds on the competitive ratio. 
+          This motivates the study of intermediate information models.
+          We introduce a new model in which processing times are revealed gradually during execution. Each job consists of a sequence of operations, and the processing time of an operation becomes known only after the preceding one completes. This models many scheduling scenarios that arise in computing systems.
+          </p>
+
+          <p>
+          Our main result is a deterministic \(O(m^2)\)-competitive algorithm, where \(m\) is the maximum number of operations per job. 
+          More specifically, we prove a refined competitive ratio in \(O(m_1 \cdot m_2)\), where \(m_1\) and \(m_2\) are instance-dependent parameters describing the operation size structure.
+          Our algorithm and analysis build on recent advancements in robust flow time minimization (SODA '26), where jobs arrive with estimated sizes. 
+          However, in our setting we have no bounded estimate on a job's processing time. Thus, we design a highly adaptive algorithm
+          that gradually explores a job's operations while working on them, and groups them into virtual chunks whose size can be well-estimated. This is 
+          a crucial ingredient of our result and requires a much more careful analysis compared to the robust setting.
+          We also provide lower bounds showing that our bounds are essentially best possible.
+          For the special case of scheduling with uniform obligatory tests, we show that SRPT at the operation level is \(2\)-competitive, which is best possible.
+        </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Delayed-Clairvoyant Flow Time Schedulingvia a Borrow Graph Analysis</h3>
+            <p class="pub-authors">With Alexander Lindermayr</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2602.21827" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+          We study the problem of preemptively scheduling jobs online over time on a single machine to minimize the total flow time.
+          In the traditional clairvoyant scheduling model, the scheduler learns about the processing time of a job at its arrival, and scheduling at any time the job with the shortest remaining processing time (SRPT) is optimal. In contrast, the practically relevant non-clairvoyant model assumes that the processing time of a job is unknown at its arrival, and is only revealed when it completes. Non-clairvoyant flow time minimization does not admit algorithms with a constant competitive ratio. Consequently, the problem has been studied under speed augmentation (JACM'00) or with predicted processing times (STOC'21, SODA'22) to attain constant guarantees.
+          </p>
+
+          <p>
+          In this paper, we consider \(\alpha\)-clairvoyant scheduling, where the scheduler learns the processing time of a job once it completes an \(\alpha\)-fraction of its processing time. This naturally interpolates between clairvoyant scheduling (\(\alpha=0\)) and  non-clairvoyant scheduling (\(\alpha=1\)). By elegantly fusing two traditional algorithms, we propose a scheduling rule with a competitive ratio of \(\mathcal{O}(\frac{1}{1-\alpha})\) whenever \(0 \leq \alpha < 1\). As \(\alpha\) increases, our competitive guarantee transitions nicely (up to constants) between the previously established bounds for clairvoyant and non-clairvoyant flow time minimization. We complement this positive result with a tight randomized lower bound.
+          </p>
+        </div>
+      </div>
+
+
+    </section>
+
     <!-- Publications -->
     <section id="publications">
       <h2>Publications</h2>
