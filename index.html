@@ -65,6 +65,8 @@
     <section id="news">
       <h2>News</h2>
       <ul>
+        <li> <b>26 June 2026:</b> Our paper <i>Online Flow Time Minimization with Gradually Revealed Jobs</i> has been accepted at ESA 2026</li>
+        <li> <b>21 June 2026:</b> I attended <a href="https://mapsp2026.webspace.durham.ac.uk">MAPSP 2026</a> in County Durham, UK and gave a talk on <i>A Little Clairvoyance Is All You Need</i></li>
         <li> <b>1 June 2026:</b> I attended the SIAM Conference on Optimization (OP26) 2026 in Edinburgh and gave a talk on <i>The Complexity of Knapsack under Explorable Uncertainty</i> in the Minisymposium on <i>Stochastic Combinatorial Optimization</i>, organized by Nicole Megow and Kevin Schewior</li>
         <li> <b>17 March 2026:</b> I gave a talk on  <i>A Little Clairvoyance Is All You Need: Scheduling with Progress Bars</i> in the <a href="https://algorithms.sdu.dk/talks.php">Algorithms seminar</a> at SDU, Odense </li>
         <li> <b>12 December 2025:</b> Our paper <i>Optimal Verification of a Minimum-Weight Basis in an Uncertainty Matroid</i> has been accepted at <a href="https://stacs2026.imag.fr"> STACS 2026</a></li>
@@ -105,11 +107,45 @@
         </div>
       </div>
 
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Delayed-Clairvoyant Flow Time Scheduling via a Borrow Graph Analysis</h3>
+            <p class="pub-authors">With Alexander Lindermayr</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2602.21827" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+          We study the problem of preemptively scheduling jobs online over time on a single machine to minimize the total flow time.
+          In the traditional clairvoyant scheduling model, the scheduler learns about the processing time of a job at its arrival, and scheduling at any time the job with the shortest remaining processing time (SRPT) is optimal. In contrast, the practically relevant non-clairvoyant model assumes that the processing time of a job is unknown at its arrival, and is only revealed when it completes. Non-clairvoyant flow time minimization does not admit algorithms with a constant competitive ratio. Consequently, the problem has been studied under speed augmentation (JACM'00) or with predicted processing times (STOC'21, SODA'22) to attain constant guarantees.
+          </p>
+
+          <p>
+          In this paper, we consider \(\alpha\)-clairvoyant scheduling, where the scheduler learns the processing time of a job once it completes an \(\alpha\)-fraction of its processing time. This naturally interpolates between clairvoyant scheduling (\(\alpha=0\)) and  non-clairvoyant scheduling (\(\alpha=1\)). By elegantly fusing two traditional algorithms, we propose a scheduling rule with a competitive ratio of \(\mathcal{O}(\frac{1}{1-\alpha})\) whenever \(0 \leq \alpha < 1\). As \(\alpha\) increases, our competitive guarantee transitions nicely (up to constants) between the previously established bounds for clairvoyant and non-clairvoyant flow time minimization. We complement this positive result with a tight randomized lower bound.
+          </p>
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <h2>Publications</h2>
+
       <div class="publication"> 
         <div class="pub-main">
           <div class="pub-info">
             <h3 class="pub-title">Online Flow Time Minimization with Gradually Revealed Jobs</h3>
             <p class="pub-authors">With Alexander Lindermayr, Guido Schäfer and Leen Stougie</p>
+            <p class="pub-venue">ESA 2026</p>
           </div>
       
           <div class="pub-buttons">
@@ -144,40 +180,6 @@
         </p>
         </div>
       </div>
-
-      <div class="publication">
-        <div class="pub-main">
-          <div class="pub-info">
-            <h3 class="pub-title">Delayed-Clairvoyant Flow Time Scheduling via a Borrow Graph Analysis</h3>
-            <p class="pub-authors">With Alexander Lindermayr</p>
-          </div>
-      
-          <div class="pub-buttons">
-            <a href="https://arxiv.org/pdf/2602.21827" target="_blank" class="pub-btn">arXiv</a>
-            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
-          </div>
-        </div>
-      
-        <!-- Abstract sits below the publication -->
-        <div class="pub-abstract">
-          <p>
-          We study the problem of preemptively scheduling jobs online over time on a single machine to minimize the total flow time.
-          In the traditional clairvoyant scheduling model, the scheduler learns about the processing time of a job at its arrival, and scheduling at any time the job with the shortest remaining processing time (SRPT) is optimal. In contrast, the practically relevant non-clairvoyant model assumes that the processing time of a job is unknown at its arrival, and is only revealed when it completes. Non-clairvoyant flow time minimization does not admit algorithms with a constant competitive ratio. Consequently, the problem has been studied under speed augmentation (JACM'00) or with predicted processing times (STOC'21, SODA'22) to attain constant guarantees.
-          </p>
-
-          <p>
-          In this paper, we consider \(\alpha\)-clairvoyant scheduling, where the scheduler learns the processing time of a job once it completes an \(\alpha\)-fraction of its processing time. This naturally interpolates between clairvoyant scheduling (\(\alpha=0\)) and  non-clairvoyant scheduling (\(\alpha=1\)). By elegantly fusing two traditional algorithms, we propose a scheduling rule with a competitive ratio of \(\mathcal{O}(\frac{1}{1-\alpha})\) whenever \(0 \leq \alpha < 1\). As \(\alpha\) increases, our competitive guarantee transitions nicely (up to constants) between the previously established bounds for clairvoyant and non-clairvoyant flow time minimization. We complement this positive result with a tight randomized lower bound.
-          </p>
-        </div>
-      </div>
-
-
-    </section>
-
-    <!-- Publications -->
-    <section id="publications">
-      <h2>Publications</h2>
-
 
       <div class="publication">
         <div class="pub-main">
