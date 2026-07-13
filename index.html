@@ -54,7 +54,7 @@
       <ul>
         <li> I am a postdoctoral researcher in the <a href="https://www.cwi.nl/en/research/networks-and-optimization/">Networks & Optimization</a> group at <a href="https://www.cwi.nl/en/"> Centrum Wiskunde & Informatica (CWI)</a> in Amsterdam, hosted by <a href="https://www.cwi.nl/en/people/guido-schaefer/"> Guido Schäfer.</a></li>
         
-        <li> My main research interests are combinatorial optimization, optimization under uncertainty and approximation algorithms. In particular, I enjoy working on scheduling problems under uncertainty, and on query minimization problems in the area of explorable uncertainty. One major focus of my research has been to study these problems in settings beyond the worst-case, such as  <a href="https://algorithms-with-predictions.github.io">learning-augmented algorithm design </a>. </li>
+        <li> My main research interests are combinatorial optimization, optimization under uncertainty and approximation algorithms. In particular, I enjoy working on scheduling problems under uncertainty, and on query minimization problems in the area of explorable uncertainty. One major focus of my research has been to study these problems in settings beyond the worst-case, such as  <a href="https://algorithms-with-predictions.github.io">learning-augmented algorithm design</a>. </li>
 
         <li> In 2023, I received my PhD in Computer Science from the <a href="https://www.uni-bremen.de/en/">University of Bremen</a> in Germany, where I was a PhD student (2019-2023) and postdoctoral researcher (2023-2024) in the  <a href="https://www.uni-bremen.de/en/cslog">Combinatorial Optimization and Logistics</a> group, supervised by <a href="https://www.uni-bremen.de/en/cslog/nmegow"> Nicole Megow</a>. 
         </li>        
@@ -65,7 +65,9 @@
       <h2>News</h2>
     
       <ul id="news-list">
-    
+
+        <li class="news-item"><b>10 July 2026:</b> Our paper <i>Improved Lower Bounds and Output Augmentation for Facility Location Mechanisms</i> has been accepted at <a href="https://www.uni-augsburg.de/de/fakultaet/fai/conferences/sagt-2026/">SAGT 2026</a></li>
+
         <li class="news-item"><b>26 June 2026:</b> Our paper <i>Online Flow Time Minimization with Gradually Revealed Jobs</i> has been accepted at <a href="https://algo-conference.org/2026/esa/">ESA 2026</a></li>
     
         <li class="news-item"><b>21 June 2026:</b> I attended <a href="https://mapsp2026.webspace.durham.ac.uk">MAPSP 2026</a> in County Durham, UK and gave a talk on <i>A Little Clairvoyance Is All You Need</i></li>
@@ -157,6 +159,39 @@
     <!-- Publications -->
     <section id="publications">
       <h2>Publications</h2>
+
+      <div class="publication"> 
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Improved Lower Bounds and Output Augmentation for Facility Location Mechanisms</h3>
+            <p class="pub-authors">With Rafael Gomes, Sophie Klumper and Guido Schäfer</p>
+            <p class="pub-venue">SAGT 2026</p>
+          </div>
+      
+        <div class="pub-buttons">
+            <!-- <a href="https://arxiv.org/pdf/2602.12716" target="_blank" class="pub-btn">arXiv</a> -->
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div> 
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+            We study the facility location problem in Euclidean space under the egalitarian objective, where a mechanism selects a facility location based on the reported positions of \(n\) agents so as to minimize the maximum distance to any agent. While the line case is well understood, much less is known in higher dimensions: even in the plane the achievable approximation guarantees of randomized mechanisms that are strategyproof in expectation are poorly understood.
+            </p>
+
+            <p>
+            We prove a lower bound of \(1 + \sqrt{d/(2(d+1))}\) on the approximation ratio of any strategyproof in expectation mechanism in any dimension \(d\) as \(n \to \infty\), improving the previous best lower bound of \(1.118\) in the plane to \(1.577\). The construction is based on a simple geometric configuration that extends to higher dimensions. We show that this barrier is driven by large populations: for \(n = 2\) we derive a \(\sqrt{2}\)-approximate mechanism, while for \(n \ge 3\) we prove a lower bound of \(1.277\).
+          </p>
+          <p>
+            We then study output augmentation, where the facility may lie outside the agents' domain. For agents on a line with facility in the plane, we design a deterministic strategyproof \(\sqrt{2}\)-approximate mechanism with a matching lower bound. 
+            This already breaks the \(3/2\) lower bound for randomized mechanisms without augmentation, establishing that output augmentation allows for strictly more powerful mechanisms.
+          </p>
+          <p>    
+            As our main technical result, we obtain a randomized \(3/2\)-approximate mechanism that is group-strategyproof in expectation for agents on the unit circle and facility in the plane. The mechanism distributes probability mass in a report-dependent way between the optimal facility location and extreme agent locations. We complement this with a lower bound of \(2\) for deterministic group-strategyproof mechanisms, showing the limitations of output augmentation without randomization.
+        </p>
+        </div>
+      </div>
 
       <div class="publication"> 
         <div class="pub-main">
