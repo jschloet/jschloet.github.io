@@ -372,7 +372,7 @@ Publications:
   
   .page-btn {
     padding: 6px 12px;
-    background: #e87d13;
+    background: #142930;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -380,7 +380,7 @@ Publications:
   }
   
   .page-btn.active {
-    background: #d35400;
+    background: #e87d13;
   }
   
   .page-btn:disabled {
