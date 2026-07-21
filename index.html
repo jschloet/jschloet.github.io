@@ -105,6 +105,62 @@
     <section id="preprints">
       <h2>Preprints</h2>
       
+      
+    
+      <div class="publication"> 
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Online Scheduling with a Stochastic Signal
+            </h3>
+            <p class="pub-authors">With Romain Cosson, Jingwei Li and Alexander Lindermayr</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2607.17784" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+        
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+            Nonclairvoyant scheduling is a fundamental online model in which 
+            processing times are initially unknown to the scheduler. 
+            Unfortunately, for important objectives such as total completion time and makespan, worst-case analysis yields pessimistic guarantees: 
+            every nonclairvoyant algorithm has a competitive ratio of at least
+            \(2\) for these objectives.
+          </p>
+
+          <p>
+            Recent work introduced \(\varepsilon\)-clairvoyance, 
+            where a scheduler receives a signal once an \(\varepsilon\)-fraction of a job remains (FOCS'25, NeurIPS'25). This model avoids giving the algorithm
+            a priori predictions as done in learning-augmented algorithms, 
+            a practice that is often hard to justify in practice. However, existing
+            algorithms and analyses rely crucially on signal times being precise,
+            an assumption hardly justifiable in applications such as task profiling.
+          </p>
+
+          <p>
+            We introduce stochastic clairvoyance, a beyond-worst-case model 
+            in which each job emits a randomly timed signal during its execution, 
+            drawn from a distribution over its processing length. For this model, 
+            we design new online scheduling algorithms whose 
+            competitive ratios are strictly below \(2\) for minimizing total
+            completion time and makespan. On the technical side, we prove a new black-box theorem that converts bounds on expected pairwise job delays into competitive
+            guarantees via a continuous amortized charging argument.
+          </p>
+
+          <p>
+            Our results show that stochastic clairvoyance is not merely a curiosity: 
+            it yields robust improvements across different scheduling objectives and
+            machine environments. More broadly, stochastic clairvoyance suggests a new direction in beyond-worst-case analysis for online algorithms, 
+            and builds a bridge between learning-augmented algorithms and stochastic information models.
+          </p>
+        </div>
+      </div>
+
+
+
       <div class="publication"> 
         <div class="pub-main">
           <div class="pub-info">
