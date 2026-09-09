@@ -20,8 +20,9 @@
           <ul>
             <li><a href="#bio">About</a></li>
             <li><a href="#news">News</a></li>
-            <li><a href="#publications">Publications</a></li>
             <li><a href="#preprints">Preprints</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#notes">Unpublished Notes</a></li>
           </ul>
         </div>
         <div class="nav-right">
@@ -114,6 +115,44 @@
     <section id="preprints">
       <h2>Preprints</h2>
       
+
+      <div class="publication"> 
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Better Late Than Never: Online Flow Time Scheduling with Online Estimates
+            </h3>
+            <p class="pub-authors">With Anupam Gupta, Haim Kaplan, Alexander Lindermayr and Sorrachai Yingchareonthawornchai</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2609.07402" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+        
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+
+        <p>
+          In the classical online flow-time scheduling problem on a single machine, 
+          jobs arrive over time and must be processed in some order to minimize the total time they spend in the system: for over fifty years, we have known that SRPT is an optimal online algorithm. But this algorithm requires exactness in two different ways: (a) job sizes must be known exactly, and (b) they must be revealed as soon as the job arrives. Recent work relaxed each of these assumptions separately: there are algorithms based on knowing approximate sizes (given when the job arrives), or based on knowing (exact) sizes at some point before the remaining size gets too small. (The latter setting models the phenomenon that the algorithm may "learn" job sizes by processing them---but asking for learning algorithms to output exact sizes is unreasonable.) Nonetheless, prior to this work, there was no known approach to relax both of these assumptions simultaneously.
+        </p>
+        <p>
+          In this work, we consider a model that demands much less: jobs arrive over time. When a job arrives, we are notified. As we process it,
+          at some point in time between when we complete an $\eps$-fraction and
+          a \((1-\epsilon)\)-fraction of its unknown processing requirement, we are
+          informed that the job is "somewhere in the middle". Finally, when the
+          job has received its desired amount of processing, we are informed of
+          its completion. No other information is shared about the job. We give an \(O(1/\epsilon^2)\)-competitive algorithm for this model.
+        </p>
+        <p>
+          Slightly more generally, we assume that 
+          an algorithm receives a \(\mu\)-approximate estimate of each job's processing time at some time before we complete a \((1-\epsilon)\)-fraction of its processing.   
+          Our algorithm is \(O(\mu/\varepsilon)\)-competitive, and we show that this is asymptotically optimal. (The previous "three bit" model can be solved using this algorithm with \(\mu = 1/\epsilon\).) Our algorithm is a surprisingly natural variant of the multilevel feedback algorithm (MLF), which is widely used in practice, and is parameter-oblivious: it does not need to know \(\mu\) or \(\varepsilon\) upfront. The core analytical contribution is to generalize and robustify the dual-fitting framework for this problem to handle jobs for which we have not yet received estimates. 
+        </p>
+        </div>
+      </div>
+
       <div class="publication"> 
         <div class="pub-main">
           <div class="pub-info">
@@ -199,59 +238,7 @@
             and builds a bridge between learning-augmented algorithms and stochastic information models.
           </p>
         </div>
-      </div>
-
-
-
-      <div class="publication"> 
-        <div class="pub-main">
-          <div class="pub-info">
-            <h3 class="pub-title">A Simpler Analysis for \(\epsilon\)-Clairvoyant Flow Time Scheduling
-            </h3>
-            <p class="pub-authors">With Anupam Gupta, Haim Kaplan, Alexander Lindermayr and Sorrachai Yingchareonthawornchai</p>
-          </div>
-      
-          <div class="pub-buttons">
-            <a href="https://arxiv.org/pdf/2603.17542" target="_blank" class="pub-btn">arXiv</a>
-            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
-          </div>
-        </div>
-      
-        <!-- Abstract sits below the publication -->
-        <div class="pub-abstract">
-          <p>
-            We simplify the proof of the optimality of the Shortest Lower-Bound First (SLF) algorithm, introduced by Gupta, Kaplan, Lindermayr, Schlöter, and Yingchareonthawornchai [FOCS'25], for minimizing the total flow time in the \(\epsilon\)-clairvoyant setting.
-        </p>
-        </div>
-      </div>
-
-      <div class="publication">
-        <div class="pub-main">
-          <div class="pub-info">
-            <h3 class="pub-title">Delayed-Clairvoyant Flow Time Scheduling via a Borrow Graph Analysis</h3>
-            <p class="pub-authors">With Alexander Lindermayr</p>
-          </div>
-      
-          <div class="pub-buttons">
-            <a href="https://arxiv.org/pdf/2602.21827" target="_blank" class="pub-btn">arXiv</a>
-            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
-          </div>
-        </div>
-      
-        <!-- Abstract sits below the publication -->
-        <div class="pub-abstract">
-          <p>
-          We study the problem of preemptively scheduling jobs online over time on a single machine to minimize the total flow time.
-          In the traditional clairvoyant scheduling model, the scheduler learns about the processing time of a job at its arrival, and scheduling at any time the job with the shortest remaining processing time (SRPT) is optimal. In contrast, the practically relevant non-clairvoyant model assumes that the processing time of a job is unknown at its arrival, and is only revealed when it completes. Non-clairvoyant flow time minimization does not admit algorithms with a constant competitive ratio. Consequently, the problem has been studied under speed augmentation (JACM'00) or with predicted processing times (STOC'21, SODA'22) to attain constant guarantees.
-          </p>
-
-          <p>
-          In this paper, we consider \(\alpha\)-clairvoyant scheduling, where the scheduler learns the processing time of a job once it completes an \(\alpha\)-fraction of its processing time. This naturally interpolates between clairvoyant scheduling (\(\alpha=0\)) and  non-clairvoyant scheduling (\(\alpha=1\)). By elegantly fusing two traditional algorithms, we propose a scheduling rule with a competitive ratio of \(\mathcal{O}(\frac{1}{1-\alpha})\) whenever \(0 \leq \alpha < 1\). As \(\alpha\) increases, our competitive guarantee transitions nicely (up to constants) between the previously established bounds for clairvoyant and non-clairvoyant flow time minimization. We complement this positive result with a tight randomized lower bound.
-          </p>
-        </div>
-      </div>
-
-
+      </div>  
     </section>
 
     <!-- Publications -->
@@ -839,6 +826,61 @@
         </div>
       </div>
  
+    </section>
+
+    <!-- Preprints -->
+    <section id="notes">
+      <h2>Unpublished Notes</h2>
+      
+      <div class="publication"> 
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">A Simpler Analysis for \(\epsilon\)-Clairvoyant Flow Time Scheduling
+            </h3>
+            <p class="pub-authors">With Anupam Gupta, Haim Kaplan, Alexander Lindermayr and Sorrachai Yingchareonthawornchai</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2603.17542" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+            We simplify the proof of the optimality of the Shortest Lower-Bound First (SLF) algorithm, introduced by Gupta, Kaplan, Lindermayr, Schlöter, and Yingchareonthawornchai [FOCS'25], for minimizing the total flow time in the \(\epsilon\)-clairvoyant setting.
+        </p>
+        </div>
+      </div>
+
+      <div class="publication">
+        <div class="pub-main">
+          <div class="pub-info">
+            <h3 class="pub-title">Delayed-Clairvoyant Flow Time Scheduling via a Borrow Graph Analysis</h3>
+            <p class="pub-authors">With Alexander Lindermayr</p>
+          </div>
+      
+          <div class="pub-buttons">
+            <a href="https://arxiv.org/pdf/2602.21827" target="_blank" class="pub-btn">arXiv</a>
+            <button class="pub-btn" onclick="toggleAbstract(this)">Abstract</button>
+          </div>
+        </div>
+      
+        <!-- Abstract sits below the publication -->
+        <div class="pub-abstract">
+          <p>
+          We study the problem of preemptively scheduling jobs online over time on a single machine to minimize the total flow time.
+          In the traditional clairvoyant scheduling model, the scheduler learns about the processing time of a job at its arrival, and scheduling at any time the job with the shortest remaining processing time (SRPT) is optimal. In contrast, the practically relevant non-clairvoyant model assumes that the processing time of a job is unknown at its arrival, and is only revealed when it completes. Non-clairvoyant flow time minimization does not admit algorithms with a constant competitive ratio. Consequently, the problem has been studied under speed augmentation (JACM'00) or with predicted processing times (STOC'21, SODA'22) to attain constant guarantees.
+          </p>
+
+          <p>
+          In this paper, we consider \(\alpha\)-clairvoyant scheduling, where the scheduler learns the processing time of a job once it completes an \(\alpha\)-fraction of its processing time. This naturally interpolates between clairvoyant scheduling (\(\alpha=0\)) and  non-clairvoyant scheduling (\(\alpha=1\)). By elegantly fusing two traditional algorithms, we propose a scheduling rule with a competitive ratio of \(\mathcal{O}(\frac{1}{1-\alpha})\) whenever \(0 \leq \alpha < 1\). As \(\alpha\) increases, our competitive guarantee transitions nicely (up to constants) between the previously established bounds for clairvoyant and non-clairvoyant flow time minimization. We complement this positive result with a tight randomized lower bound.
+          </p>
+        </div>
+      </div>
+
+
     </section>
 
  
