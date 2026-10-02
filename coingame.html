@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Game — A Strategy Game</title>
+<style>
+  :root{
+    --ink:#18212f;
+    --muted:#667085;
+    --panel:#ffffff;
+    --bg:#f4f7fb;
+    --line:#d9e0ea;
+    --orange:#f28c28;
+    --green:#4caf50;
+    --blue:#4169e1;
+    --soft:#eef3fb;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.5;
+  }
+  .wrap{max-width:1100px;margin:auto;padding:24px}
+  header{text-align:center;padding:28px 10px 18px}
+  h1{font-size:clamp(2rem,5vw,3.5rem);margin:.1em 0 .15em;letter-spacing:-.04em}
+  h2{margin-top:0;font-size:1.8rem}
+  h3{margin-bottom:.35rem}
+  .subtitle{font-size:1.12rem;color:var(--muted);max-width:720px;margin:auto}
+  section{
+    background:var(--panel);border:1px solid var(--line);border-radius:20px;
+    padding:28px;margin:18px 0;box-shadow:0 5px 20px rgba(20,35,60,.05)
+  }
+  .rules{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;align-items:center}
+  .rulebox{background:var(--soft);border-radius:14px;padding:18px}
+  .rulebox strong{display:block;margin-bottom:5px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .step{padding:14px;border:1px solid var(--line);border-radius:12px}
+  .step b{display:block;margin-bottom:4px}
+  .game-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  button,select{
+    font:inherit;border:1px solid #c9d2df;background:white;color:var(--ink);
+    border-radius:10px;padding:9px 13px;cursor:pointer;
+  }
+  button:hover{background:#f4f7fb}
+  button.primary{background:var(--ink);color:white;border-color:var(--ink)}
+  button.selected{background:var(--soft);border-color:#8da4d6}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .game-grid{display:grid;grid-template-columns:minmax(420px,560px) 1fr;gap:25px;align-items:start}
+  canvas{display:block;width:100%;max-width:560px;aspect-ratio:1;border-radius:16px;background:#fbfcfe;border:1px solid var(--line);cursor:crosshair}
+  .status{
+    margin:10px 0 0;padding:11px 14px;border-radius:10px;background:var(--soft);
+    font-weight:650;text-align:center
+  }
+  .shape-buttons{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 16px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.95rem;margin-top:10px}
+  .dot{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:-2px;margin-right:5px}
+  .orange{background:var(--orange)} .green{background:var(--green)}
+  .note{color:var(--muted);font-size:.95rem}
+  .hidden{display:none!important}
+  .quiz-row{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:12px;align-items:center;
+    padding:14px 0;border-bottom:1px solid var(--line)
+  }
+  .quiz-row:last-child{border-bottom:0}
+  .choices{display:flex;gap:8px;flex-wrap:wrap}
+  .choices label{
+    border:1px solid var(--line);border-radius:10px;padding:8px 11px;cursor:pointer
+  }
+  .choices input{margin-right:6px}
+  .quiz-result{
+    padding:12px 14px;border-radius:10px;margin-top:8px;background:#f5f7fa
+  }
+  .correct{border-left:4px solid var(--green)}
+  .wrong{border-left:4px solid var(--orange)}
+  .reveal-card{
+    border:1px solid var(--line);border-radius:15px;padding:17px;margin:12px 0;
+    background:#fbfcfe
+  }
+  .reveal-card h3{display:flex;justify-content:space-between;gap:10px}
+  .winner{font-size:.88rem;padding:4px 8px;border-radius:999px;background:var(--soft);white-space:nowrap}
+  .computer-game{margin-top:8px}
+  .computer-game .game-grid{margin-top:10px}
+  .computer-game canvas{cursor:crosshair}
+  .takeaway{
+    background:#18212f;color:white;border:0;
+  }
+  .takeaway .muted{color:#cbd5e1}
+  .big-idea{font-size:1.3rem;line-height:1.55}
+  .pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#edf1f6;font-size:.82rem}
+  footer{text-align:center;color:var(--muted);padding:10px 0 35px}
+  @media(max-width:820px){
+    .rules,.game-grid{grid-template-columns:1fr}
+    .steps,.computer-grid{grid-template-columns:1fr}
+    .quiz-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="pill">A mathematical strategy game</div>
+  <h1>Coin Game</h1>
+  <p class="subtitle">Play first. Look for patterns. Can you find a guaranteed winning strategy?</p>
+</header>
+
+<section>
+  <div class="rules">
+    <div>
+      <h2>1. How to play</h2>
+      <p>Two players take turns placing coins on the board. Coins may not overlap and must stay inside the playing area.</p>
+      <p><strong>If you cannot place another coin, you lose.</strong></p>
+      <div class="steps">
+        <div class="step"><b>① Choose a shape</b>Try several boards.</div>
+        <div class="step"><b>② Take turns</b>Place one coin at a time.</div>
+        <div class="step"><b>③ Look for patterns</b>Can you work out a strategy?</div>
+      </div>
+    </div>
+    <div class="rulebox">
+      <strong>Challenge</strong>
+      Can you find a way to guarantee a win, regardless of what your opponent does?
+      <p class="note">Don't worry about finding it immediately. The point of this section is to experiment.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="game-head">
+    <div>
+      <h2>2. Play against another player</h2>
+      <div class="note">Orange starts. No hints. Try to discover something yourself.</div>
+    </div>
+    <div class="controls">
+      <button id="newGame" class="primary">New game</button>
+      <label>Coin size <input id="coinSize" type="range" min="12" max="42" value="37"></label>
+    </div>
+  </div>
+
+  <div class="shape-buttons" id="shapeButtons"></div>
+
+  <div class="game-grid">
+    <div>
+      <canvas id="gameCanvas" width="560" height="560"></canvas>
+      <div class="status" id="gameStatus"></div>
+      <div class="legend">
+        <span><i class="dot orange"></i>Orange</span>
+        <span><i class="dot green"></i>Green</span>
+      </div>
+    </div>
+    <div>
+      <button id="hintsToggle" type="button" class="secondary" aria-expanded="false">Show hints</button>
+      <div id="hintsPanel" class="hidden" style="margin-top:14px">
+        <h3>Try these questions</h3>
+        <ul>
+          <li>Does the first move seem especially important?</li>
+          <li>Can you always answer an opponent's move with another move?</li>
+          <li>What changes when the centre of the board is missing?</li>
+          <li>Does the exact shape matter, or is there a deeper pattern?</li>
+        </ul>
+      </div>
+      <p class="note">Switch shapes and play several rounds before moving on.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. What is a winning strategy?</h2>
+  <p>A <strong>winning strategy</strong> is a way of playing that guarantees you will win, no matter what your opponent does.</p>
+  <p>Based on what you discovered, make a prediction. For each shape, choose the player who you think has a guaranteed winning strategy.</p>
+
+  <form id="quiz"></form>
+  <button id="submitQuiz" class="primary">Submit answers</button>
+  <div id="quizFeedback"></div>
+</section>
+
+<section id="answersSection" class="hidden">
+  <h2>4. The strategies revealed</h2>
+  <p>Here are the winning strategies. Notice that the important feature is not really whether a board looks like a circle or a rectangle. It is the <strong>symmetry</strong> of the board.</p>
+  <div id="answerCards"></div>
+
+  <h2 style="margin-top:30px">Now play against the computer — it always plays the winning side</h2>
+  <p>The computer plays the winning strategy for the selected shape. Its strategy is shown below the board from the start.</p>
+  <div class="computer-game">
+    <div>
+      <div class="shape-buttons" id="computerShapeButtons"></div>
+      <div class="game-grid">
+        <div>
+          <canvas id="computerCanvas" width="560" height="560"></canvas>
+          <div class="status" id="computerStatus"></div>
+          <div class="legend" id="computerLegend">
+            <span><i class="dot orange"></i>Orange</span>
+            <span><i class="dot green"></i>Green</span>
+          </div>
+        </div>
+        <div>
+          <div class="reveal-card" id="computerStrategy"></div>
+          <button id="computerNewGame" class="primary">New computer game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="takeaway hidden" id="finalSection">
+  <h2>5. Why is this strategy so easy to compute?</h2>
+  <p class="big-idea">In many two-player games, finding a guaranteed winning strategy means considering an enormous number of possible moves and future positions. Chess is an extreme example: the game tree is vastly too large to simply search exhaustively.</p>
+  <p>Here, we don't need to search. The <strong>geometry of the board gives us the algorithm</strong>.</p>
+  <p>On a centrally symmetric board with a playable centre, the first player can take the centre. After that, every opponent move has a matching move on the opposite side.</p>
+  <p>On a centrally symmetric board with <em>no</em> playable centre, the second player can do the pairing instead: every move has a distinct opposite partner.</p>
+  <p class="big-idea"><strong>A good algorithm doesn't always need to search. Sometimes, finding the right structure makes the answer obvious.</strong></p>
+</section>
+
+<footer>Coin Game · Explore → Conjecture → Prove → Play</footer>
+</div>
+
+<script>
+const CENTER={x:280,y:280}, OUTER=250, SQUARE_HALF=250, INNER=78;
+const shapes=[
+  {id:"circle",name:"Circle",winner:"Orange",
+   strategy:"Orange takes the centre. After that, Orange places every coin directly opposite Green's previous move.",
+   reason:"The board has 180° rotational symmetry and the centre is playable."},
+  {id:"square",name:"Square",winner:"Orange",
+   strategy:"Orange takes the centre. After that, Orange mirrors every Green move through the centre.",
+   reason:"A square is centrally symmetric, and its centre is playable."},
+  {id:"rectangle",name:"Rectangle",winner:"Orange",
+   strategy:"Orange takes the centre, then responds to every Green move with its point opposite.",
+   reason:"The rectangle is centrally symmetric and has a playable centre."},
+  {id:"ellipse",name:"Ellipse",winner:"Orange",
+   strategy:"Orange takes the centre, then mirrors every Green move through the centre.",
+   reason:"An ellipse has 180° rotational symmetry and a playable centre."},
+  {id:"donut",name:"Donut",winner:"Green",
+   strategy:"Green mirrors every Orange move through the centre. Orange can never play the centre because it is the hole.",
+   reason:"Every legal move has a distinct opposite partner; there is no playable fixed point."},
+  {id:"twoCircles",name:"Two circles",winner:"Green",
+   strategy:"Green mirrors every Orange move through the midpoint. A move in one circle is paired with a move in the other.",
+   reason:"The two identical components are exchanged by a 180° rotation, with no playable centre."}
+];
+let shape="circle", coinRadius=37, coins=[], turn="orange", gameOver=false;
+
+const canvas=document.getElementById("gameCanvas"),ctx=canvas.getContext("2d");
+const status=document.getElementById("gameStatus");
+
+function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+function mirror(p){return {x:2*CENTER.x-p.x,y:2*CENTER.y-p.y}}
+function inside(p){
+  const r=coinRadius+2;
+  if(shape==="circle"||shape==="ellipse"){
+    const dx=(p.x-CENTER.x)/(shape==="ellipse"?1.08:1);
+    const dy=(p.y-CENTER.y)/(shape==="ellipse"?.62:1);
+    return Math.hypot(dx,dy)<=OUTER-r;
+  }
+  if(shape==="square") return Math.abs(p.x-CENTER.x)<=SQUARE_HALF-r && Math.abs(p.y-CENTER.y)<=SQUARE_HALF-r;
+  if(shape==="rectangle") return Math.abs(p.x-CENTER.x)<=235-r && Math.abs(p.y-CENTER.y)<=150-r;
+  if(shape==="donut"){
+    const d=dist(p,CENTER); return d>=INNER+r && d<=OUTER-r;
+  }
+  if(shape==="twoCircles"){
+    const centers=[{x:180,y:280},{x:380,y:280}];
+    return centers.some(c=>dist(p,c)<=82-r);
+  }
+}
+function legal(p){return inside(p)&&coins.every(c=>dist(c,p)>=2*coinRadius+0.5)}
+function drawBoard(){
+  ctx.clearRect(0,0,560,560);
+  ctx.save();
+  ctx.fillStyle="#fbfcfe";ctx.fillRect(0,0,560,560);
+  ctx.strokeStyle="#aeb9c8";ctx.lineWidth=2;ctx.fillStyle="#eef3fb";
+  if(shape==="circle"){
+    ctx.beginPath();ctx.arc(CENTER.x,CENTER.y,OUTER,0,Math.PI*2);ctx.fill();ctx.stroke();
+  } else if(shape==="ellipse"){
+    ctx.beginPath();ctx.ellipse(CENTER.x,CENTER.y,OUTER*1.08,OUTER*.62,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+  } else if(shape==="square"){
+    ctx.fillRect(30,30,500,500);ctx.strokeRect(30,30,500,500);
+  } else if(shape==="rectangle"){
+    ctx.fillRect(45,130,470,300);ctx.strokeRect(45,130,470,300);
+  } else if(shape==="donut"){
+    ctx.beginPath();ctx.arc(CENTER.x,CENTER.y,OUTER,0,Math.PI*2);
+    ctx.arc(CENTER.x,CENTER.y,INNER,0,Math.PI*2,true);ctx.fill("evenodd");ctx.stroke();
+    ctx.setLineDash([5,5]);ctx.beginPath();ctx.arc(CENTER.x,CENTER.y,INNER,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+  } else {
+    for(const c of [{x:180,y:280},{x:380,y:280}]){
+      ctx.beginPath();ctx.arc(c.x,c.y,82,0,Math.PI*2);ctx.fill();ctx.stroke();
+    }
+  }
+  ctx.restore();
+  for(const c of coins){
+    ctx.beginPath();ctx.arc(c.x,c.y,coinRadius,0,Math.PI*2);
+    ctx.fillStyle=c.player==="orange"?"#f28c28":"#4caf50";ctx.fill();
+    ctx.strokeStyle="rgba(0,0,0,.16)";ctx.lineWidth=1;ctx.stroke();
+  }
+}
+function anyLegal(){
+  for(let y=15;y<545;y+=5)for(let x=15;x<545;x+=5)if(legal({x,y}))return true;
+  return false;
+}
+function updateStatus(){
+  if(gameOver)return;
+  status.textContent=(turn==="orange"?"Orange":"Green")+" — place a coin.";
+}
+function endIfNeeded(){
+  if(!anyLegal()){
+    gameOver=true;
+    const winner=turn==="orange"?"Green":"Orange";
+    status.textContent=winner+" wins! The "+(turn==="orange"?"Orange":"Green")+" player has no legal move.";
+  }
+}
+function newGame(){
+  coins=[];turn="orange";gameOver=false;drawBoard();updateStatus();
+}
+function handleClick(e){
+  if(gameOver)return;
+  const r=canvas.getBoundingClientRect();
+  const p={x:(e.clientX-r.left)*560/r.width,y:(e.clientY-r.top)*560/r.height};
+  if(!legal(p))return;
+  coins.push({...p,player:turn});
+  turn=turn==="orange"?"green":"orange";
+  drawBoard();updateStatus();endIfNeeded();
+}
+function setShape(s){
+  shape=s;document.querySelectorAll("#shapeButtons button").forEach(b=>b.classList.toggle("selected",b.dataset.shape===s));newGame();
+}
+function setupShapes(){
+  const el=document.getElementById("shapeButtons");
+  shapes.forEach((s,i)=>{
+    const b=document.createElement("button");b.textContent=s.name;b.dataset.shape=s.id;
+    b.onclick=()=>setShape(s.id);if(i===0)b.classList.add("selected");el.appendChild(b);
+  });
+}
+canvas.addEventListener("click",handleClick);
+document.getElementById("newGame").onclick=newGame;
+document.getElementById("coinSize").oninput=e=>{if(coins.length===0){coinRadius=+e.target.value;drawBoard()}};
+
+const hintsToggle=document.getElementById("hintsToggle");
+const hintsPanel=document.getElementById("hintsPanel");
+hintsToggle.addEventListener("click",()=>{
+  const show=hintsPanel.classList.toggle("hidden")===false;
+  hintsToggle.textContent=show?"Hide hints":"Show hints";
+  hintsToggle.setAttribute("aria-expanded",show?"true":"false");
+});
+
+const quiz=document.getElementById("quiz");
+shapes.forEach((s,i)=>{
+  quiz.insertAdjacentHTML("beforeend",`
+    <div class="quiz-row">
+      <strong>${i+1}. ${s.name}</strong>
+      <div class="choices">
+        <label><input type="radio" name="q${i}" value="Orange">Orange</label>
+        <label><input type="radio" name="q${i}" value="Green">Green</label>
+      </div>
+    </div>`);
+});
+document.getElementById("submitQuiz").onclick=()=>{
+  let score=0,answered=0;
+  shapes.forEach((s,i)=>{
+    const chosen=document.querySelector(`input[name=q${i}]:checked`);
+    const row=quiz.children[i];
+    let result=row.querySelector(".quiz-result"); if(result)result.remove();
+    result=document.createElement("div");result.className="quiz-result";
+    if(chosen){answered++;if(chosen.value===s.winner){score++;result.classList.add("correct");result.textContent="Correct!";}else{result.classList.add("wrong");result.textContent="Not quite — the winning player is "+s.winner+"."}}
+    else result.textContent="No answer selected. The winning player is "+s.winner+".";
+    row.appendChild(result);
+  });
+  const fb=document.getElementById("quizFeedback");
+  fb.innerHTML=`<p><strong>You got ${score} of ${shapes.length} correct.</strong> ${answered<shapes.length?"The unanswered questions are shown with their correct player.":"Now compare your predictions with the strategies below."}</p>`;
+  buildAnswers();
+  document.getElementById("answersSection").classList.remove("hidden");
+  document.getElementById("finalSection").classList.remove("hidden");
+  document.querySelector("#answersSection h2:nth-of-type(2)").scrollIntoView({behavior:"smooth",block:"start"});
+};
+
+function buildAnswers(){
+  const cards=document.getElementById("answerCards");cards.innerHTML="";
+  shapes.forEach(s=>{
+    cards.insertAdjacentHTML("beforeend",`
+      <div class="reveal-card">
+        <h3>${s.name}<span class="winner">${s.winner} has the winning strategy</span></h3>
+        <p>${s.strategy}</p>
+        <p class="note"><strong>Why:</strong> ${s.reason}</p>
+      </div>`);
+  });
+}
+const computerCanvas=document.getElementById("computerCanvas");
+const computerCtx=computerCanvas.getContext("2d");
+const computerStatus=document.getElementById("computerStatus");
+const computerStrategy=document.getElementById("computerStrategy");
+const computerShapeButtons=document.getElementById("computerShapeButtons");
+let computerShape="circle";
+let computerCoins=[];
+let computerTurn="green";
+let computerOver=false;
+let computerTimer=null;
+let computerPlayer="green"; // computer always plays the mathematically winning side
+let humanPlayer="orange";
+
+function computerScalePoint(p){return p}
+
+function computerInside(p){
+  const r=coinRadius+2;
+  if(computerShape==="circle"){
+    return dist(p,CENTER)<=OUTER-r;
+  }
+  if(computerShape==="ellipse"){
+    const dx=(p.x-CENTER.x)/1.08, dy=(p.y-CENTER.y)/.62;
+    return Math.hypot(dx,dy)<=OUTER-r;
+  }
+  if(computerShape==="square"){
+    return Math.abs(p.x-CENTER.x)<=SQUARE_HALF-r && Math.abs(p.y-CENTER.y)<=SQUARE_HALF-r;
+  }
+  if(computerShape==="rectangle"){
+    return Math.abs(p.x-CENTER.x)<=235-r && Math.abs(p.y-CENTER.y)<=150-r;
+  }
+  if(computerShape==="donut"){
+    const d=dist(p,CENTER); return d>=INNER+r && d<=OUTER-r;
+  }
+  if(computerShape==="twoCircles"){
+    return [{x:180,y:280},{x:380,y:280}].some(c=>dist(p,c)<=82-r);
+  }
+}
+function computerLegal(p){
+  return computerInside(p) && computerCoins.every(c=>dist(c,p)>=2*coinRadius+0.5);
+}
+function computerAnyLegal(){
+  for(let y=15;y<545;y+=5) for(let x=15;x<545;x+=5)
+    if(computerLegal({x,y})) return {x,y};
+  return null;
+}
+function drawComputerBoard(){
+  const c=computerCtx;
+  c.clearRect(0,0,560,560);
+  c.fillStyle="#fbfcfe";c.fillRect(0,0,560,560);
+  c.fillStyle="#eef3fb";c.strokeStyle="#aeb9c8";c.lineWidth=2;
+
+  if(computerShape==="circle"){
+    c.beginPath();c.arc(CENTER.x,CENTER.y,OUTER,0,Math.PI*2);c.fill();c.stroke();
+  } else if(computerShape==="ellipse"){
+    c.beginPath();c.ellipse(CENTER.x,CENTER.y,OUTER*1.08,OUTER*.62,0,0,Math.PI*2);c.fill();c.stroke();
+  } else if(computerShape==="square"){
+    c.fillRect(30,30,500,500);c.strokeRect(30,30,500,500);
+  } else if(computerShape==="rectangle"){
+    c.fillRect(45,130,470,300);c.strokeRect(45,130,470,300);
+  } else if(computerShape==="donut"){
+    c.beginPath();c.arc(CENTER.x,CENTER.y,OUTER,0,Math.PI*2);
+    c.arc(CENTER.x,CENTER.y,INNER,0,Math.PI*2,true);
+    c.fill("evenodd");c.stroke();
+    c.setLineDash([5,5]);c.beginPath();c.arc(CENTER.x,CENTER.y,INNER,0,Math.PI*2);c.stroke();c.setLineDash([]);
+  } else {
+    for(const cc of [{x:180,y:280},{x:380,y:280}]){
+      c.beginPath();c.arc(cc.x,cc.y,82,0,Math.PI*2);c.fill();c.stroke();
+    }
+  }
+
+  for(const coin of computerCoins){
+    c.beginPath();c.arc(coin.x,coin.y,coinRadius,0,Math.PI*2);
+    c.fillStyle=coin.player==="orange"?"#f28c28":"#4caf50";
+    c.fill();c.strokeStyle="rgba(0,0,0,.16)";c.lineWidth=1;c.stroke();
+  }
+}
+function computerWinningPlayer(){
+  return shapes.find(s=>s.id===computerShape).winner.toLowerCase();
+}
+function updateComputerStatus(){
+  if(computerOver)return;
+  if(computerTurn===humanPlayer){
+    computerStatus.textContent="Your turn — place a coin.";
+  } else {
+    computerStatus.textContent="Computer is thinking…";
+  }
+}
+function computerWinner(){
+  computerOver=true;
+  // The player who just moved wins when the player whose turn it is
+  // has no legal move.
+  const winner=computerTurn===computerPlayer?"You":"Computer";
+  computerStatus.textContent=winner+" wins! There is no legal move for the other player.";
+}
+function computerCheckEnd(){
+  if(!computerAnyLegal()) computerWinner();
+}
+function computerFindMirror(p){
+  const m=mirror(p);
+  return computerLegal(m)?m:null;
+}
+function computerMove(){
+  if(computerOver || computerTurn!==computerPlayer) return;
+
+  let move=null;
+
+  // For first-player winning shapes, the computer starts by taking the centre.
+  if(computerCoins.length===0 && computerWinningPlayer()==="orange"){
+    move={x:CENTER.x,y:CENTER.y};
+  } else {
+    // For second-player winning shapes, mirror the human's latest move.
+    const last=computerCoins[computerCoins.length-1];
+    if(last && last.player===humanPlayer) move=computerFindMirror(last);
+  }
+
+  if(!move || !computerLegal(move)) move=computerAnyLegal();
+  if(!move){computerWinner();return}
+
+  computerCoins.push({...move,player:computerPlayer});
+  computerTurn=humanPlayer;
+  drawComputerBoard();
+
+  if(computerWinningPlayer()==="orange"){
+    computerStatus.textContent="Computer takes the centre, then mirrors your moves through the centre.";
+  } else {
+    computerStatus.textContent="Computer mirrors your move through the centre — every move has a distinct opposite partner.";
+  }
+  computerCheckEnd();
+}
+function computerClick(e){
+  if(computerOver || computerTurn!==humanPlayer) return;
+  const r=computerCanvas.getBoundingClientRect();
+  const p={x:(e.clientX-r.left)*560/r.width,y:(e.clientY-r.top)*560/r.height};
+  if(!computerLegal(p)) return;
+  computerCoins.push({...p,player:humanPlayer});
+  computerTurn=computerPlayer;
+  drawComputerBoard();
+  computerStatus.textContent="Computer is responding with the winning strategy…";
+  clearTimeout(computerTimer);
+  computerTimer=setTimeout(computerMove,450);
+}
+function startComputerGame(){
+  clearTimeout(computerTimer);
+  computerCoins=[];
+  computerOver=false;
+
+  // The computer always takes the winning role.
+  // Orange wins on circle/square/rectangle/ellipse; Green wins on donut/two circles.
+  computerPlayer=computerWinningPlayer();
+  humanPlayer=computerPlayer==="orange"?"green":"orange";
+
+  // If the computer is the first player, its centre move is already on
+  // the board when the shape is selected. If the computer is the second
+  // player, the human gets the first move.
+  computerTurn=computerPlayer==="orange" ? computerPlayer : humanPlayer;
+
+  const orangeRole=humanPlayer==="orange"?"You":"Computer";
+  const greenRole=humanPlayer==="green"?"You":"Computer";
+  document.getElementById("computerLegend").innerHTML=
+    `<span><i class="dot orange"></i>${orangeRole}</span>
+     <span><i class="dot green"></i>${greenRole}</span>`;
+
+  drawComputerBoard();
+
+  if(computerPlayer==="orange"){
+    computerMove();
+  } else {
+    updateComputerStatus();
+  }
+}
+function setComputerShape(s){
+  computerShape=s;
+  document.querySelectorAll("#computerShapeButtons button").forEach(b=>b.classList.toggle("selected",b.dataset.shape===s));
+  const info=shapes.find(x=>x.id===s);
+  computerStrategy.innerHTML=
+    `<h3>${info.name}: ${info.winner}'s winning strategy</h3>
+     <p>${info.strategy}</p>
+     <p class="note"><strong>Why it works:</strong> ${info.reason}</p>
+     <p class="note"><strong>Computer role:</strong> The computer plays as ${info.winner}, the player with the guaranteed winning strategy.</p>`;
+  startComputerGame();
+}
+function setupComputerShapes(){
+  computerShapeButtons.innerHTML="";
+  shapes.forEach((s,i)=>{
+    const b=document.createElement("button");
+    b.type="button";b.textContent=s.name;b.dataset.shape=s.id;
+    b.addEventListener("click",()=>setComputerShape(s.id));
+    if(i===0)b.classList.add("selected");
+    computerShapeButtons.appendChild(b);
+  });
+}
+computerCanvas.addEventListener("click",computerClick);
+document.getElementById("computerNewGame").addEventListener("click",startComputerGame);
+document.getElementById("coinSize").addEventListener("input",e=>{
+  // The computer may already have its opening coin on the board.
+  // Keep the slider active until the human has made a move.
+  const humanHasMoved=computerCoins.some(c=>c.player===humanPlayer);
+  if(!humanHasMoved){
+    coinRadius=+e.target.value;
+    drawComputerBoard();
+  }
+});
+setupComputerShapes();
+setComputerShape("rectangle");
+
+setupShapes();newGame();
+setShape("rectangle");
+</script>
+</body>
+</html>
