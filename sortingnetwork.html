@@ -21,7 +21,7 @@
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id), svgns='http://www.w3.org/2000/svg';
-const introLayers=[[[0,1],[2,3]],[[0,2],[1,3]],[[1,2]]];
+const introNetwork=Array.from({length:3},()=>[{a:2,b:3},{a:1,b:2},{a:0,b:1}]).flat();
 const reference=[{a:0,b:1,col:0},{a:2,b:3,col:0},{a:0,b:2,col:1},{a:1,b:3,col:1},{a:1,b:2,col:2}];
 let introNumbers=[4,1,3,2],introStage=0,n=3,comps=[],selected=null,examined=false,lastResult=null;
 function randPermutation(n){const a=Array.from({length:n},(_,i)=>i+1);for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a}
@@ -45,7 +45,7 @@ return {y,x,H};}
 function introDraw(){
   const svg=$('introSvg');
   // Preserve the order of the network while stepping through one comparator at a time.
-  const net=reference;
+  const net=introNetwork;
   let values=[...introNumbers];
   for(let j=0;j<introStage;j++){
     const {a,b}=net[j];
@@ -68,12 +68,12 @@ function introDraw(){
   $('introStep').textContent=`Comparison ${introStage} of ${net.length}`;
   $('introBack').disabled=introStage===0;
   $('introNext').disabled=introStage===net.length;
-  if(introStage===0)$('introText').textContent='Predict what happens when wires 1 and 2 are compared.';
-  else if(introStage===net.length)$('introText').textContent=`All five comparisons are complete. Output: ${values.join(', ')}. Will the network sort other inputs too?`;
+  if(introStage===0)$('introText').textContent='Predict what happens when wires 3 and 4 are compared.';
+  else if(introStage===net.length)$('introText').textContent=`All nine comparisons are complete. Output: ${values.join(', ')}. Will the network sort other inputs too?`;
   else{const c=net[introStage-1];$('introText').textContent=`Compared wires ${c.a+1} and ${c.b+1}. Current values: ${values.join(', ')}.`;}
 }
 $('introBack').onclick=()=>{introStage=Math.max(0,introStage-1);introDraw()};
-$('introNext').onclick=()=>{introStage=Math.min(reference.length,introStage+1);introDraw()};
+$('introNext').onclick=()=>{introStage=Math.min(introNetwork.length,introStage+1);introDraw()};
 $('introShuffle').onclick=()=>{introNumbers=randPermutation(4);introStage=0;introDraw()};
 // The animation is a snapshot of the student's current design, so edits
 // close it instead of silently displaying an obsolete network.
