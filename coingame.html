@@ -145,6 +145,7 @@
   <div class="game-grid">
     <div>
       <canvas id="gameCanvas" width="560" height="560"></canvas>
+      <button id="legalToggle" type="button" class="secondary" aria-pressed="false" style="margin-top:10px">Show legal moves</button>
       <div class="status" id="gameStatus"></div>
       <div class="legend">
         <span><i class="dot orange"></i>Orange</span>
@@ -190,6 +191,7 @@
       <div class="game-grid">
         <div>
           <canvas id="computerCanvas" width="560" height="560"></canvas>
+          <button id="computerLegalToggle" type="button" class="secondary" aria-pressed="false" style="margin-top:10px">Show legal moves</button>
           <div class="status" id="computerStatus"></div>
           <div class="legend" id="computerLegend">
             <span><i class="dot orange"></i>Orange</span>
@@ -205,13 +207,68 @@
   </div>
 </section>
 
-<section class="takeaway hidden" id="finalSection">
+<section class="takeaway hidden" id="finalSection"> 
   <h2>5. Why is this strategy so easy to compute?</h2>
   <p class="big-idea">In many two-player games, finding a guaranteed winning strategy means considering an enormous number of possible moves and future positions. Chess is an extreme example: the game tree is vastly too large to simply search exhaustively.</p>
   <p>Here, we don't need to search. The <strong>geometry of the board gives us the algorithm</strong>.</p>
   <p>On a centrally symmetric board with a playable centre, the first player can take the centre. After that, every opponent move has a matching move on the opposite side.</p>
   <p>On a centrally symmetric board with <em>no</em> playable centre, the second player can do the pairing instead: every move has a distinct opposite partner.</p>
-  <p class="big-idea"><strong>A good algorithm doesn't always need to search. Sometimes, finding the right structure makes the answer obvious.</strong></p>
+  <p class="big-idea"><strong>A good algorithm doesn't always need to search. Sometimes, finding the right structure directly gives the answer.</strong></p>
+</section>
+
+
+<section id="bonusSection" class="hidden">
+  <h2>6. Bonus: Can you invent a new strategy?</h2>
+  <p>Now there are <strong>three identical circles</strong>. Orange goes first. Can you find a guaranteed winning strategy? Play a few rounds with a partner before revealing the answer.</p>
+  <div class="game-head"><div class="controls"><button id="bonusNew" class="primary">New game</button><label>Coin size <input id="bonusSize" type="range" min="12" max="42" value="37"></label></div></div>
+  <div class="game-grid"><div>
+    <canvas id="bonusCanvas" width="560" height="560"></canvas>
+    <button id="bonusLegal" class="secondary" type="button" aria-pressed="false" style="margin-top:10px">Show legal moves</button>
+    <div class="status" id="bonusStatus">Orange — place a coin.</div>
+    <div class="legend"><span><i class="dot orange"></i>Orange</span><span><i class="dot green"></i>Green</span></div>
+  </div><div>
+    <h3>Think about it</h3>
+    <p>With two circles, Green could always respond in the other circle. What changes when there is a third?</p>
+    <p>Can you pair up moves in the outer circles <em>and</em> the middle circle?</p>
+    <button id="bonusReveal" class="secondary" type="button" aria-expanded="false">Reveal strategy</button>
+    <div id="bonusExplanation" class="reveal-card hidden" style="margin-top:12px">
+      <h3>Orange can guarantee a win!</h3>
+      <p>Start by placing a coin at the <strong>centre of the middle circle</strong>. After each Green move, rotate its position 180° around the centre of the entire board:</p>
+      <ul><li>In the <strong>middle circle</strong>, play directly opposite Green's coin.</li><li>In an <strong>outer circle</strong>, play at the matching position in the other outer circle.</li></ul>
+      <p>The opening centre coin is its own mirror image; every other legal position has a different partner. Thus Orange can always respond to Green's move.</p>
+    </div>
+  </div></div>
+  <h3>Go further</h3>
+  <p>Would your argument work with <strong>four or five</strong> identical circles in a row? What matters more: the number of circles, or whether the centre of the whole board is available for a coin?</p>
+  <h3>Exploit an opening mistake</h3>
+  <p>On a circle, square, or rectangle, Orange <em>can</em> guarantee a win by starting at the centre. But what if Orange plays somewhere else? Choose an opening, then play as Green with a partner controlling Orange. Can Green force a win, or does Orange still have a way to recover?</p>
+  <div class="shape-buttons" id="mistakeShapes"><button data-mshape="circle" class="selected">Circle</button><button data-mshape="square">Square</button><button data-mshape="rectangle">Rectangle</button></div>
+  <div class="game-grid"><div><canvas id="mistakeCanvas" width="560" height="560"></canvas><button id="mistakeReset" class="secondary" type="button" style="margin-top:10px">Try another opening</button> <button id="mistakeLegal" class="secondary" type="button" aria-pressed="false">Show legal moves</button><div class="status" id="mistakeStatus">Orange: choose an opening position.</div><div class="legend"><span><i class="dot orange"></i>Orange</span><span><i class="dot green"></i>Green</span></div></div><div><h3>Questions to investigate</h3><p>Is every non-central opening a mistake that Green can exploit? Does the answer change with the coin size or how far from the centre Orange starts?</p><p>Try to give a <strong>guaranteed</strong> response strategy, not just one successful game.</p><button id="mistakeReveal" class="secondary" type="button" aria-expanded="false">Reveal discussion</button><div id="mistakeExplanation" class="reveal-card hidden" style="margin-top:12px"><p>The centre opening is a <strong>sufficient</strong> winning move for Orange, but that does not prove it is the <em>only</em> winning opening. If Orange opens off-centre, Green cannot simply invoke the usual 180° pairing: Orange's first coin is not at the fixed point, and its opposite position may interfere with later responses.</p><p>To claim Green can force a win, you would need a response to <em>every</em> possible Orange continuation. Experimenting may suggest candidate strategies, but a few victories do not prove one. This is why exploiting mistakes can be harder than following a known winning strategy.</p></div></div></div>
+  <div style="margin-top:16px">
+    <button id="losingOpeningToggle" class="secondary" type="button" aria-expanded="false" aria-controls="losingOpeningExplanation">Show losing opening example</button>
+    <div id="losingOpeningExplanation" class="reveal-card hidden" style="margin-top:12px">
+      <h3>A provably losing Orange opening</h3>
+      <p>This works on the <strong>circle, square, and rectangle</strong>, provided there is enough room around the centre. Let each coin have radius <strong>r</strong> and call the board's centre <strong>O</strong>.</p>
+      <ol>
+        <li><strong>Orange</strong> puts its first coin a distance <strong>1.5r</strong> to the right of O.</li>
+        <li><strong>Green</strong> puts its coin a distance <strong>1.5r</strong> to the left of O.</li>
+        <li>After every subsequent Orange move, Green places the coin <strong>180° opposite</strong> through O.</li>
+      </ol>
+      <svg viewBox="0 0 440 240" role="img" aria-label="Symmetric board with an orange coin right of centre and a green coin left of centre, each 1.5 coin radii away" style="width:100%;max-width:500px;display:block;margin:auto">
+        <circle cx="220" cy="116" r="108" fill="#eef3fb" stroke="#9aabc1" stroke-width="2"/>
+        <line x1="125" y1="116" x2="315" y2="116" stroke="#8090a3" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <circle cx="220" cy="116" r="24" fill="#9caac0" fill-opacity=".24" stroke="#8090a3" stroke-dasharray="4 4"/>
+        <circle cx="184" cy="116" r="24" fill="#4caf50" stroke="#2d7f3d" stroke-width="1.5"/>
+        <circle cx="256" cy="116" r="24" fill="#f28c28" stroke="#bc6716" stroke-width="1.5"/>
+        <circle cx="220" cy="116" r="3" fill="#243247"/>
+        <g font-size="14" text-anchor="middle" fill="#243247"><text x="184" y="77">Green</text><text x="256" y="77">Orange</text><text x="220" y="159">O</text><text x="202" y="106" font-size="11">1.5r</text><text x="239" y="106" font-size="11">1.5r</text><text x="220" y="230" font-size="12">Shaded central region (radius r) cannot hold another coin centre</text></g>
+      </svg>
+      <p><strong>Why this wins:</strong> The two opening coins are mirror images, and together they block <em>every</em> location less than distance r from O. Thus any later legal coin centre is at least r from O, so its 180°-opposite partner is at least 2r away and cannot overlap it. The other two opening coins and the board boundary also respect the same rotation, so mirroring always preserves legality. Green responds to every Orange move; eventually Orange runs out of moves first.</p>
+      <p>More generally, this proof works for an opening distance <strong>r &lt; d ≤ √3 r</strong>, as long as both initial coins fit and can be placed without overlap. For coin radius 18, a convenient example is <strong>d = 27</strong> board pixels. The game uses a tiny extra clearance between coins, so positions right at the theoretical endpoints may not work; <strong>1.5r</strong> is safely inside the range.</p>
+      <p class="note">Try it yourself above: choose the shape, start Orange 1.5 coin radii right of the board's centre, and have Green place the mirrored coin. Then try to beat Green's mirroring strategy.</p>
+    </div>
+  </div>
+  <p><strong>Further exploration:</strong> What changes if the donut's hole is slightly off-centre? The simple pairing proof breaks down there too.</p>
 </section>
 
 <footer>Coin Game · Explore → Conjecture → Prove → Play</footer>
@@ -264,6 +321,20 @@ function inside(p){
   }
 }
 function legal(p){return inside(p)&&coins.every(c=>dist(c,p)>=2*coinRadius+0.5)}
+// Shade valid coin-centre positions, not the full footprint of a new coin.
+// Render at 2-pixel resolution for a responsive overlay on every move.
+let showLegal=false, showComputerLegal=false;
+function paintLegalArea(context, isLegal){
+  const step=2;
+  context.save();
+  context.fillStyle="rgba(31, 160, 190, 0.38)";
+  for(let y=0;y<560;y+=step){
+    for(let x=0;x<560;x+=step){
+      if(isLegal({x:x+step/2,y:y+step/2})) context.fillRect(x,y,step,step);
+    }
+  }
+  context.restore();
+}
 function drawBoard(){
   ctx.clearRect(0,0,560,560);
   ctx.save();
@@ -287,6 +358,7 @@ function drawBoard(){
     }
   }
   ctx.restore();
+  if(showLegal) paintLegalArea(ctx,legal);
   for(const c of coins){
     ctx.beginPath();ctx.arc(c.x,c.y,coinRadius,0,Math.PI*2);
     ctx.fillStyle=c.player==="orange"?"#f28c28":"#4caf50";ctx.fill();
@@ -331,6 +403,12 @@ function setupShapes(){
   });
 }
 canvas.addEventListener("click",handleClick);
+document.getElementById("legalToggle").addEventListener("click",e=>{
+  showLegal=!showLegal;
+  e.currentTarget.textContent=showLegal?"Hide legal moves":"Show legal moves";
+  e.currentTarget.setAttribute("aria-pressed",String(showLegal));
+  drawBoard();
+});
 document.getElementById("newGame").onclick=newGame;
 document.getElementById("coinSize").oninput=e=>{if(coins.length===0){coinRadius=+e.target.value;drawBoard()}};
 
@@ -369,6 +447,7 @@ document.getElementById("submitQuiz").onclick=()=>{
   buildAnswers();
   document.getElementById("answersSection").classList.remove("hidden");
   document.getElementById("finalSection").classList.remove("hidden");
+  document.getElementById("bonusSection").classList.remove("hidden");
   document.querySelector("#answersSection h2:nth-of-type(2)").scrollIntoView({behavior:"smooth",block:"start"});
 };
 
@@ -453,6 +532,7 @@ function drawComputerBoard(){
     }
   }
 
+  if(showComputerLegal) paintLegalArea(c,computerLegal);
   for(const coin of computerCoins){
     c.beginPath();c.arc(coin.x,coin.y,coinRadius,0,Math.PI*2);
     c.fillStyle=coin.player==="orange"?"#f28c28":"#4caf50";
@@ -575,6 +655,12 @@ function setupComputerShapes(){
   });
 }
 computerCanvas.addEventListener("click",computerClick);
+document.getElementById("computerLegalToggle").addEventListener("click",e=>{
+  showComputerLegal=!showComputerLegal;
+  e.currentTarget.textContent=showComputerLegal?"Hide legal moves":"Show legal moves";
+  e.currentTarget.setAttribute("aria-pressed",String(showComputerLegal));
+  drawComputerBoard();
+});
 document.getElementById("computerNewGame").addEventListener("click",startComputerGame);
 document.getElementById("coinSize").addEventListener("input",e=>{
   // The computer may already have its opening coin on the board.
@@ -590,6 +676,59 @@ setComputerShape("rectangle");
 
 setupShapes();newGame();
 setShape("rectangle");
+
+// Bonus game: three equal circles, paired by half-turn symmetry.
+const bonusCanvas=document.getElementById("bonusCanvas"),bonusCtx=bonusCanvas.getContext("2d");
+const bonusCenters=[{x:115,y:280},{x:280,y:280},{x:445,y:280}];
+const bonusRadius=79;
+let bonusCoins=[],bonusCoinSize=37,bonusTurn="orange",bonusOver=false,bonusShowLegal=false;
+function bonusInside(p){return bonusCenters.some(c=>dist(c,p)<=bonusRadius-bonusCoinSize-2)}
+function bonusIsLegal(p){return bonusInside(p)&&bonusCoins.every(c=>dist(c,p)>=2*bonusCoinSize+.5)}
+function bonusDraw(){
+  bonusCtx.clearRect(0,0,560,560);
+  bonusCtx.fillStyle="#fbfcfe";bonusCtx.fillRect(0,0,560,560);
+  bonusCtx.fillStyle="#eef3fb";bonusCtx.strokeStyle="#aeb9c8";bonusCtx.lineWidth=2;
+  for(const c of bonusCenters){bonusCtx.beginPath();bonusCtx.arc(c.x,c.y,bonusRadius,0,2*Math.PI);bonusCtx.fill();bonusCtx.stroke()}
+  if(bonusShowLegal)paintLegalArea(bonusCtx,bonusIsLegal);
+  for(const c of bonusCoins){bonusCtx.beginPath();bonusCtx.arc(c.x,c.y,bonusCoinSize,0,2*Math.PI);bonusCtx.fillStyle=c.player==="orange"?"#f28c28":"#4caf50";bonusCtx.fill();bonusCtx.strokeStyle="rgba(0,0,0,.16)";bonusCtx.stroke()}
+}
+function bonusAnyLegal(){for(let y=185;y<=375;y+=3)for(let x=30;x<=530;x+=3)if(bonusIsLegal({x,y}))return true;return false}
+function bonusReset(){bonusCoins=[];bonusTurn="orange";bonusOver=false;bonusDraw();document.getElementById("bonusStatus").textContent="Orange — place a coin."}
+bonusCanvas.addEventListener("click",e=>{
+  if(bonusOver)return;
+  const r=bonusCanvas.getBoundingClientRect(),p={x:(e.clientX-r.left)*560/r.width,y:(e.clientY-r.top)*560/r.height};
+  if(!bonusIsLegal(p))return;
+  bonusCoins.push({...p,player:bonusTurn});bonusTurn=bonusTurn==="orange"?"green":"orange";bonusDraw();
+  if(!bonusAnyLegal()){bonusOver=true;document.getElementById("bonusStatus").textContent=(bonusTurn==="orange"?"Green":"Orange")+" wins! No legal moves remain."}
+  else document.getElementById("bonusStatus").textContent=(bonusTurn==="orange"?"Orange":"Green")+" — place a coin.";
+});
+document.getElementById("bonusNew").onclick=bonusReset;
+document.getElementById("bonusSize").oninput=e=>{if(!bonusCoins.length){bonusCoinSize=+e.target.value;bonusDraw()}};
+document.getElementById("bonusLegal").onclick=e=>{bonusShowLegal=!bonusShowLegal;e.currentTarget.textContent=bonusShowLegal?"Hide legal moves":"Show legal moves";e.currentTarget.setAttribute("aria-pressed",String(bonusShowLegal));bonusDraw()};
+document.getElementById("bonusReveal").onclick=e=>{const visible=document.getElementById("bonusExplanation").classList.toggle("hidden")===false;e.currentTarget.textContent=visible?"Hide strategy":"Reveal strategy";e.currentTarget.setAttribute("aria-expanded",String(visible))};
+bonusReset();
+
+
+// Bonus investigation: deliberately let Orange choose a noncentral opening.
+const mistakeCanvas=document.getElementById("mistakeCanvas"), mistakeCtx=mistakeCanvas.getContext("2d");
+let mistakeShape="circle",mistakeCoins=[],mistakeTurn="orange",mistakeOver=false,mistakeShowLegal=false;
+function mistakeInside(p){const r=coinRadius+2;if(mistakeShape==="circle")return dist(p,CENTER)<=OUTER-r;if(mistakeShape==="square")return Math.abs(p.x-280)<=250-r&&Math.abs(p.y-280)<=250-r;return Math.abs(p.x-280)<=235-r&&Math.abs(p.y-280)<=150-r}
+function mistakeLegalMove(p){return mistakeInside(p)&&mistakeCoins.every(c=>dist(c,p)>=2*coinRadius+.5)}
+function mistakeDraw(){const c=mistakeCtx;c.clearRect(0,0,560,560);c.fillStyle="#fbfcfe";c.fillRect(0,0,560,560);c.fillStyle="#eef3fb";c.strokeStyle="#aeb9c8";c.lineWidth=2;if(mistakeShape==="circle"){c.beginPath();c.arc(280,280,250,0,Math.PI*2);c.fill();c.stroke()}else{const a=mistakeShape==="square"?[30,30,500,500]:[45,130,470,300];c.fillRect(...a);c.strokeRect(...a)}if(mistakeShowLegal)paintLegalArea(c,mistakeLegalMove);for(const q of mistakeCoins){c.beginPath();c.arc(q.x,q.y,coinRadius,0,Math.PI*2);c.fillStyle=q.player==="orange"?"#f28c28":"#4caf50";c.fill();c.strokeStyle="rgba(0,0,0,.16)";c.stroke()}}
+function mistakeReset(){mistakeCoins=[];mistakeTurn="orange";mistakeOver=false;document.getElementById("mistakeStatus").textContent="Orange: choose an opening position.";mistakeDraw()}
+function mistakeAnyLegal(){for(let y=15;y<545;y+=3)for(let x=15;x<545;x+=3)if(mistakeLegalMove({x,y}))return true;return false}
+mistakeCanvas.addEventListener("click",e=>{if(mistakeOver)return;const r=mistakeCanvas.getBoundingClientRect(),p={x:(e.clientX-r.left)*560/r.width,y:(e.clientY-r.top)*560/r.height};if(!mistakeLegalMove(p))return;mistakeCoins.push({...p,player:mistakeTurn});mistakeTurn=mistakeTurn==="orange"?"green":"orange";mistakeDraw();if(!mistakeAnyLegal()){mistakeOver=true;document.getElementById("mistakeStatus").textContent=(mistakeTurn==="orange"?"Green":"Orange")+" wins! No legal moves remain."}else document.getElementById("mistakeStatus").textContent=(mistakeTurn==="orange"?"Orange":"Green")+" — place a coin."});
+document.getElementById("mistakeReset").onclick=mistakeReset;
+document.querySelectorAll("#mistakeShapes button").forEach(b=>b.onclick=()=>{mistakeShape=b.dataset.mshape;document.querySelectorAll("#mistakeShapes button").forEach(x=>x.classList.toggle("selected",x===b));mistakeReset()});
+document.getElementById("mistakeLegal").onclick=e=>{mistakeShowLegal=!mistakeShowLegal;e.currentTarget.textContent=mistakeShowLegal?"Hide legal moves":"Show legal moves";e.currentTarget.setAttribute("aria-pressed",String(mistakeShowLegal));mistakeDraw()};
+document.getElementById("mistakeReveal").onclick=e=>{const show=!document.getElementById("mistakeExplanation").classList.toggle("hidden");e.currentTarget.textContent=show?"Hide discussion":"Reveal discussion";e.currentTarget.setAttribute("aria-expanded",String(show))};
+mistakeReset();
+document.getElementById("losingOpeningToggle").addEventListener("click",e=>{
+  const panel=document.getElementById("losingOpeningExplanation");
+  const expanded=panel.classList.toggle("hidden")===false;
+  e.currentTarget.textContent=expanded?"Hide losing opening example":"Show losing opening example";
+  e.currentTarget.setAttribute("aria-expanded",String(expanded));
+});
 </script>
 </body>
 </html>
