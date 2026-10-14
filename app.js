@@ -4,8 +4,8 @@ const el=id=>document.getElementById(id), canvas=el('board'),ctx=canvas.getConte
 const select=el('checkpoint');const manifestUrl='./models/manifest.json';
 let manifest=null, checkpoint=select.value,humanFirst=false,worker=null,seq=0,pending=new Map(),busy=false;
 let state,history=[]; const FRAME=720,scale=43,center=360;
-function point(a){const [x,y]=geom.coords[a];return [center+x*scale,center+y*scale];}
-function role(side){return side===(humanFirst?0:1)?'Player':'AI';}
+function point(a){const [x,y]=geom.coords[a];return [center+x*scale,center-y*scale];}
+function role(side){return side===(humanFirst?0:1)?'You':'AI';}
 function makeState(){return {coins:[[],[]],turn:0,last:-1};}
 function clone(s){return {coins:[s.coins[0].slice(),s.coins[1].slice()],turn:s.turn,last:s.last};}
 function legal(){return I.legal(geom.board,geom.coords,[...state.coins[0],...state.coins[1]],geom.radius);}
@@ -22,7 +22,7 @@ function draw(){
  for(let side=0;side<2;side++)for(let ix=0;ix<state.coins[side].length;ix++){
    const a=state.coins[side][ix];const [x,y]=point(a);ctx.beginPath();ctx.arc(x,y,geom.radius*scale,0,2*Math.PI);ctx.fillStyle=side===0?'#f28c28':'#4caf50';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#ffffff';ctx.stroke();ctx.beginPath();ctx.arc(x-14,y-17,geom.radius*scale*.24,0,2*Math.PI);ctx.fillStyle='rgba(255,255,255,.16)';ctx.fill();
  }
- if(el('showCoordinates').checked){ctx.fillStyle='#47647b';ctx.font='13px system-ui';ctx.textAlign='center';for(let k=-6;k<=6;k+=2){ctx.fillText(String(k),center+k*scale,center+geom.outer*scale+24);if(k!==0)ctx.fillText(String(-k),center-geom.outer*scale-19,center+k*scale+5);}}
+ if(el('showCoordinates').checked){ctx.fillStyle='#47647b';ctx.font='13px system-ui';ctx.textAlign='center';for(let k=-6;k<=6;k+=2){ctx.fillText(String(k),center+k*scale,center+geom.outer*scale+24);if(k!==0)ctx.fillText(String(k),center-geom.outer*scale-19,center-k*scale+5);}}
  el('coinCount').textContent=(state.coins[0].length+state.coins[1].length)+' coins played';el('movesCount').textContent=legalMask.reduce((a,b)=>a+b,0)+' legal positions';
  el('undoHuman').disabled=busy||history.length===0;
 }
@@ -32,7 +32,7 @@ function send(data){return new Promise((resolve,reject)=>{const id=++seq;pending
 async function loadSelected(){busy=true;el('loading').textContent='Loading model…';draw();const key=checkpoint;try{await send({type:'load',checkpoint:key,meta:manifest.checkpoints[key].tensor_offsets});if(key!==checkpoint)return;el('loading').textContent='Model ready';busy=false;draw();if(state.turn!==(humanFirst?0:1)&&!gameOver())await aiMove();else showTurn();}catch(e){busy=false;el('loading').textContent='Loading failed';setStatus('Model loading failed: '+e.message,true);}}
 async function aiMove(){if(busy||gameOver()||state.turn===(humanFirst?0:1))return;busy=true;setStatus('AI is calculating its move…');draw();const myState=clone(state),key=checkpoint;try{const result=await send({type:'predict',checkpoint:key,state:myState,radius:geom.radius,outer:geom.outer,hole:geom.hole});if(key!==checkpoint||state!==myState&&JSON.stringify(state)!==JSON.stringify(myState))return;const a=result.action;if(a<0||!legal()[a])throw new Error('Model returned an illegal move');put(a);showTurn();}catch(e){setStatus('Could not calculate the AI move: '+e.message,true);}finally{busy=false;draw();}}
 function newGame(){state=makeState();history=[];busy=false;updateRoles();draw();if(!manifest)return;if(!worker){setStatus('Browser workers are unavailable. Host this directory on GitHub Pages.',true);return;}loadSelected();}
-function handleCanvas(e){if(busy||!manifest||state.turn!==(humanFirst?0:1)||gameOver())return;const rect=canvas.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width*FRAME,y=(e.clientY-rect.top)/rect.height*FRAME;const gx=Math.round((x-center)/scale)+7,gy=Math.round((y-center)/scale)+7;if(gx<0||gy<0||gx>=15||gy>=15)return;const a=gy*15+gx;const [px,py]=point(a);if(Math.hypot(x-px,y-py)>scale*.42)return;if(!legal()[a])return;history.push(clone(state));put(a);showTurn();if(!gameOver())setTimeout(aiMove,120);}
+function handleCanvas(e){if(busy||!manifest||state.turn!==(humanFirst?0:1)||gameOver())return;const rect=canvas.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width*FRAME,y=(e.clientY-rect.top)/rect.height*FRAME;const gx=Math.round((x-center)/scale)+7,gy=Math.round((center-y)/scale)+7;if(gx<0||gy<0||gx>=15||gy>=15)return;const a=gy*15+gx;const [px,py]=point(a);if(Math.hypot(x-px,y-py)>scale*.42)return;if(!legal()[a])return;history.push(clone(state));put(a);showTurn();if(!gameOver())setTimeout(aiMove,120);}
 function undo(){if(busy||!history.length)return;state=history.pop();newGameStatus();}
 function newGameStatus(){draw();showTurn();}
 function initializeWorker(){worker=new Worker('./worker.js');worker.onmessage=e=>{const msg=e.data;const job=pending.get(msg.id);if(!job)return;pending.delete(msg.id);if(msg.type==='error')job.reject(new Error(msg.message));else job.resolve(msg);};worker.onerror=e=>{setStatus('Browser inference error: '+e.message,true);};}
