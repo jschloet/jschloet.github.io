@@ -2,7 +2,7 @@
 const I=window.CoinInference, geom=I.geometry();
 const el=id=>document.getElementById(id), canvas=el('board'),ctx=canvas.getContext('2d');
 const select=el('checkpoint');const manifestUrl='./models/manifest.json';
-let manifest=null, checkpoint='20000',humanFirst=false,worker=null,seq=0,pending=new Map(),busy=false;
+let manifest=null, checkpoint=select.value,humanFirst=false,worker=null,seq=0,pending=new Map(),busy=false;
 let state,history=[]; const FRAME=720,scale=43,center=360;
 function point(a){const [x,y]=geom.coords[a];return [center+x*scale,center+y*scale];}
 function role(side){return side===(humanFirst?0:1)?'Player':'AI';}
